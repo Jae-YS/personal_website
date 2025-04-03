@@ -1,35 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import { useTheme } from "@mui/material";
+import Navbar from "@/components/navbar";
+import Home from "./components/home";
+import OurClasses from "./components/ourClasses";
+import Benefits from "./components/benefits";
+import ContactMe from "./components/contactMe";
+import Footer from "./components/footer";
+import { SelectedPage } from "./shared/types";
+import { Box } from "@mui/material";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const theme = useTheme();
+  const [selectedPage, setSelectedPage] = useState<SelectedPage>(
+    SelectedPage.Home
+  );
+  const [isTopOfPage, setIsTopOfPage] = useState<boolean>(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY === 0) {
+        setIsTopOfPage(true);
+        setSelectedPage(SelectedPage.Home);
+      } else {
+        setIsTopOfPage(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Box
+      sx={{
+        minHeight: "100%",
+        width: "100%",
+        fontFamily: theme.typography.fontFamily,
+      }}
+    >
+      <Navbar
+        isTopOfPage={isTopOfPage}
+        selectedPage={selectedPage}
+        setSelectedPage={setSelectedPage}
+      />
+
+      <Home setSelectedPage={setSelectedPage} />
+
+      <ContactMe setSelectedPage={setSelectedPage} />
+      {/* <Benefits setSelectedPage={setSelectedPage} />
+      <OurClasses setSelectedPage={setSelectedPage} />
+      <ContactUs setSelectedPage={setSelectedPage} /> */}
+      <Footer selectedPage={selectedPage} setSelectedPage={setSelectedPage} />
+    </Box>
+  );
 }
 
-export default App
+export default App;
