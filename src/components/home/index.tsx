@@ -64,19 +64,42 @@ const Home = ({ setSelectedPage }: Props) => {
         </Typography>
       </Box>
 
-      <motion.div
-        style={{
-          maxWidth: "83.3333%",
-          margin: "0 auto",
-          display: "flex",
-          flexDirection: isAboveMediumScreens ? "row" : "column",
-          alignItems: "center",
-          justifyContent: "center",
-          minHeight: "80vh",
-          padding: "4rem 0",
+      <Box
+        sx={{
+          width: "100%",
+          maxWidth: "600px",
+          mx: "auto",
+          px: 2,
         }}
-        onViewportEnter={() => setSelectedPage(SelectedPage.Home)}
-      ></motion.div>
+      >
+        <motion.div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            justifyContent: "start",
+            minHeight: isAboveMediumScreens ? "60vh" : "40vh",
+          }}
+          onViewportEnter={() => setSelectedPage(SelectedPage.Home)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.5 }}
+          variants={{
+            hidden: { opacity: 0, x: -50 },
+            visible: { opacity: 1, x: 0 },
+          }}
+        >
+          <h1
+            style={{
+              wordBreak: "break-word",
+              fontSize: isAboveMediumScreens ? "3rem" : "1rem",
+            }}
+          >
+            BlobBlobBlobBlobBlobBlobBlobBlobBlobBlobBlobBlobBBlobBlobBlobBlobBlobBlobBlobBlobBlobBlobBlobBlobBlobBBlob
+          </h1>
+        </motion.div>
+      </Box>
     </Box>
   );
 };

@@ -54,13 +54,6 @@ const Footer = ({ selectedPage, setSelectedPage }: Props) => {
           spacing={4}
           sx={{ mt: 4, px: 2, fontSize: { xs: "0.875rem", md: "1rem" } }}
         />
-
-        {/* Social Icon */}
-        <Box sx={{ mt: 6, mb: 2 }}>
-          <MuiLink href="#" color="inherit" underline="none">
-            <InstagramIcon sx={{ fontSize: 24 }} />
-          </MuiLink>
-        </Box>
       </Box>
     </Box>
   );

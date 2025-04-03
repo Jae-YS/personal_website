@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { useTheme } from "@mui/material";
 import Navbar from "@/components/navbar";
 import Home from "./components/home";
-import OurClasses from "./components/ourClasses";
-import Benefits from "./components/benefits";
+import AboutMe from "./components/aboutMe";
 import ContactMe from "./components/contactMe";
 import Footer from "./components/footer";
 import { SelectedPage } from "./shared/types";
@@ -44,11 +43,9 @@ function App() {
       />
 
       <Home setSelectedPage={setSelectedPage} />
+      <AboutMe setSelectedPage={setSelectedPage} />
 
       <ContactMe setSelectedPage={setSelectedPage} />
-      {/* <Benefits setSelectedPage={setSelectedPage} />
-      <OurClasses setSelectedPage={setSelectedPage} />
-      <ContactUs setSelectedPage={setSelectedPage} /> */}
       <Footer selectedPage={selectedPage} setSelectedPage={setSelectedPage} />
     </Box>
   );

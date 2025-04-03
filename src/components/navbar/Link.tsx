@@ -6,9 +6,10 @@ type Props = {
   page: string;
   selectedPage: SelectedPage;
   setSelectedPage: (value: SelectedPage) => void;
+  children?: React.ReactNode;
 };
 
-const Link = ({ page, selectedPage, setSelectedPage }: Props) => {
+const Link = ({ page, selectedPage, setSelectedPage, children }: Props) => {
   const theme = useTheme();
   const lowerCasePage = page.toLowerCase().replace(/ /g, "") as SelectedPage;
   const isSelected = selectedPage === lowerCasePage;
@@ -35,7 +36,7 @@ const Link = ({ page, selectedPage, setSelectedPage }: Props) => {
           : theme.palette.text.primary;
       }}
     >
-      {page}
+      {children ?? page}
     </AnchorLink>
   );
 };

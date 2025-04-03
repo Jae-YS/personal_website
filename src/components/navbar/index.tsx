@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
-import Link from "@/components/navbar/Link";
+import { motion } from "framer-motion";
 import { SelectedPage } from "@/shared/types";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import NavLinks from "@/components/navbar/NavLinks";
@@ -11,8 +11,8 @@ import {
   Typography,
   IconButton,
   Drawer,
-  Stack,
 } from "@mui/material";
+import Link from "./Link";
 
 type Props = {
   isTopOfPage: boolean;
@@ -26,81 +26,92 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
 
   return (
     <>
-      <AppBar
-        position="fixed"
-        elevation={isTopOfPage ? 0 : 4}
-        sx={{
-          bgcolor: isTopOfPage ? "transparent" : "#F7F6F2",
-          color: isTopOfPage ? "black" : "black",
-          boxShadow: isTopOfPage ? "none" : undefined,
-          py: 1.5,
+      <motion.div
+        animate={{
+          opacity: isAboveMediumScreens && isTopOfPage ? 0 : 1,
+          y: isAboveMediumScreens && isTopOfPage ? -20 : 0,
+          pointerEvents: isAboveMediumScreens && isTopOfPage ? "none" : "auto",
         }}
+        transition={{ duration: 0.2, ease: "easeInOut" }}
+        style={{ position: "fixed", width: "100%", zIndex: 1300 }}
       >
-        <Toolbar
+        <AppBar
+          position="fixed"
+          elevation={4}
           sx={{
-            maxWidth: "83.3333%",
-            width: "100%",
-            mx: "auto",
-            display: "flex",
-            justifyContent: "space-between",
+            bgcolor: "#F7F6F2",
+            color: "black",
+            py: 1.5,
           }}
         >
-          {/* Logo / Brand */}
-          {!isMenuToggled && (
-            <Typography
-              variant="h5"
-              sx={{
-                fontFamily: "serif",
-                fontWeight: 400,
-              }}
-              onClick={() => setSelectedPage(SelectedPage.Home)}
-              style={{ cursor: "pointer" }}
-            >
-              AKN
-            </Typography>
-          )}
-
-          {/* Nav Links / Mobile Menu Icon */}
-          {isAboveMediumScreens ? (
-            <NavLinks
+          <Toolbar
+            sx={{
+              maxWidth: "83.3333%",
+              width: "100%",
+              mx: "auto",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <Link
+              page="Home"
               selectedPage={selectedPage}
               setSelectedPage={setSelectedPage}
-              direction="row"
-              spacing={4}
-            />
-          ) : (
-            !isMenuToggled && (
-              <IconButton
-                onClick={() => setIsMenuToggled(true)}
+            >
+              <Typography
+                variant="h5"
                 sx={{
-                  backgroundColor: "secondary.main",
-                  borderRadius: "50%",
-                  p: 1,
-                  "&:hover": {
-                    backgroundColor: "secondary.light",
-                  },
+                  fontFamily: "serif",
+                  fontWeight: 400,
+                  cursor: "pointer",
                 }}
               >
-                <Bars3Icon style={{ height: 24, width: 24, color: "#fff" }} />
-              </IconButton>
-            )
-          )}
-        </Toolbar>
-      </AppBar>
+                AKN
+              </Typography>
+            </Link>
+            {isAboveMediumScreens ? (
+              <NavLinks
+                selectedPage={selectedPage}
+                setSelectedPage={setSelectedPage}
+                direction="row"
+                spacing={4}
+              />
+            ) : (
+              !isMenuToggled && (
+                <IconButton
+                  onClick={() => setIsMenuToggled(true)}
+                  sx={{
+                    backgroundColor: "secondary.main",
+                    borderRadius: "50%",
+                    p: 1,
+                    "&:hover": {
+                      backgroundColor: "secondary.light",
+                    },
+                  }}
+                >
+                  <Bars3Icon style={{ height: 24, width: 24, color: "#fff" }} />
+                </IconButton>
+              )
+            )}
+          </Toolbar>
+        </AppBar>
+      </motion.div>
 
       {/* Mobile Drawer */}
       <Drawer
         anchor="right"
         open={!isAboveMediumScreens && isMenuToggled}
         onClose={() => setIsMenuToggled(false)}
-        PaperProps={{
-          sx: {
-            width: 300,
-            bgcolor: "primary.100",
-          },
-        }}
       >
-        <Box sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            p: 2,
+            width: 250,
+            bgcolor: "primary.100",
+          }}
+        >
           <IconButton onClick={() => setIsMenuToggled(false)}>
             <XMarkIcon style={{ height: 24, width: 24, color: "#9CA3AF" }} />
           </IconButton>
@@ -111,7 +122,6 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
           direction="column"
           spacing={3}
           sx={{ alignItems: "center", mt: 4, fontSize: "1.5rem" }}
-          pages={["Home", "Projects", "About Me", "Contact Me"]}
           onLinkClick={() => setIsMenuToggled(false)}
         />
       </Drawer>
