@@ -1,11 +1,11 @@
-// components/navbar/NavLinks.tsx
-import { Stack } from "@mui/material";
+import { Stack, Typography, useTheme } from "@mui/material";
 import Link from "@/components/navbar/Link";
 import { SelectedPage } from "@/shared/types";
 
 type PageItem = {
   label: string;
   value: SelectedPage;
+  icon: React.ReactNode;
 };
 
 type Props = {
@@ -24,17 +24,18 @@ const NavLinks = ({
   direction = "row",
   spacing = 4,
   pages = [
-    { label: "Home", value: SelectedPage.Home },
-    { label: "About Me", value: SelectedPage.AboutMe },
-    { label: "Work", value: SelectedPage.Work },
-    { label: "Contact Me", value: SelectedPage.ContactMe },
+    { label: "Home", value: SelectedPage.Home, icon: undefined },
+    { label: "About Me", value: SelectedPage.AboutMe, icon: undefined },
+    { label: "Work", value: SelectedPage.Work, icon: undefined },
+    { label: "Contact Me", value: SelectedPage.ContactMe, icon: undefined },
   ],
   sx = {},
   onLinkClick,
 }: Props) => {
+  const theme = useTheme();
   return (
     <Stack direction={direction} spacing={spacing} sx={sx}>
-      {pages.map(({ label, value }) => (
+      {pages.map(({ label, value, icon }) => (
         <Link
           key={value}
           page={value}
@@ -44,7 +45,20 @@ const NavLinks = ({
             if (onLinkClick) onLinkClick();
           }}
         >
-          {label}
+          <Stack direction="row" spacing={2} alignItems="center">
+            {icon}
+            <Typography
+              sx={{
+                fontWeight: selectedPage === value ? 500 : 400,
+                color:
+                  selectedPage === value
+                    ? theme.palette.primary.main
+                    : theme.palette.text.primary,
+              }}
+            >
+              {label}
+            </Typography>
+          </Stack>
         </Link>
       ))}
     </Stack>

@@ -31,8 +31,10 @@ function App() {
   return (
     <Box
       sx={{
-        minHeight: "100%",
+        bgcolor: theme.palette.background.default,
+        minHeight: "100vh",
         width: "100%",
+        overflowX: "hidden",
         fontFamily: theme.typography.fontFamily,
       }}
     >

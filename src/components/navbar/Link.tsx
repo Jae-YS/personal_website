@@ -1,6 +1,6 @@
-import { SelectedPage } from "@/shared/types";
 import { useTheme } from "@mui/material";
 import AnchorLink from "react-anchor-link-smooth-scroll";
+import { SelectedPage } from "@/shared/types";
 
 type Props = {
   page: string;
@@ -21,20 +21,20 @@ const Link = ({ page, selectedPage, setSelectedPage, children }: Props) => {
       style={{
         cursor: "pointer",
         textDecoration: "none",
+        transition: "color 0.3s ease",
         color: isSelected
           ? theme.palette.primary.main
           : theme.palette.text.primary,
-        transition: "color 0.5s ease",
       }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLElement).style.color =
-          theme.palette.primary.light;
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLElement).style.color = isSelected
+      onMouseEnter={(e) =>
+        ((e.currentTarget as HTMLElement).style.color =
+          theme.palette.primary.light)
+      }
+      onMouseLeave={(e) =>
+        ((e.currentTarget as HTMLElement).style.color = isSelected
           ? theme.palette.primary.main
-          : theme.palette.text.primary;
-      }}
+          : theme.palette.text.primary)
+      }
     >
       {children ?? page}
     </AnchorLink>

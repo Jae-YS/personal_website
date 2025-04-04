@@ -1,6 +1,7 @@
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import { SelectedPage } from "@/shared/types";
-import { useTheme } from "@mui/material";
+
+// unused
 
 type Props = {
   children: React.ReactNode;

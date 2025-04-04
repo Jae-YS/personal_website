@@ -1,6 +1,8 @@
-import { createTheme } from '@mui/material/styles';
+// theme/theme.ts
+import { createTheme } from "@mui/material/styles";
 
-declare module '@mui/material/styles' {
+// Extend custom palette if needed
+declare module "@mui/material/styles" {
   interface Palette {
     customColors: {
       grey20: string;
@@ -15,31 +17,90 @@ declare module '@mui/material/styles' {
   }
 }
 
+// theme.palette.primary.main
+//           : theme.palette.text.primary,
+
+
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#FF6B66',
+      main: "#FF6B66",
     },
     secondary: {
-      main: '#FFC132', 
-      light: '#FFCD5B', 
+      main: "#FFC132",
+      light: "#FFCD5B",
     },
     grey: {
-      100: '#DFCCCC', 
-      500: '#5E0000',  
+      100: "#DFCCCC",
+      500: "#8C8C8C"
     },
     customColors: {
-      grey20: '#F8F4EB',   
-      primary100: '#FFE1E0', 
+      grey20: "#F8F4EB",
+      primary100: "#FFE1E0",
     },
     background: {
-      default: '#f7f6f2',
-    }
+      default: "#F7F6F2",
+    },
   },
+
   typography: {
-    fontFamily: '"DM Sans", "sans-serif"',
-    fontWeightRegular: 400,
+    fontFamily: '"Playfair Display", serif',
+    h1: {
+      fontWeight: 600,
+      fontSize: "3rem",
+    },
+    h5: {
+      fontWeight: 400,
+      fontSize: "2rem",
+    },
+    body1: {
+      fontSize: "1rem",
+    },
   },
+
+  shape: {
+    borderRadius: 8,
+  },
+
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: "none", 
+          fontWeight: 600,
+          borderRadius: 8,
+        },
+      },
+      variants: [
+        {
+          props: { variant: "contained" },
+          style: {
+            backgroundColor: "#000",
+            color: "#FFF",
+            "&:hover": {
+              backgroundColor: "#000",
+              color: "#FFF",
+            },
+          },
+        },
+      ],
+    },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontFamily: '"Playfair Display", serif',
+        },
+      },
+    },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: "#FFE1E0",
+        },
+      },
+    },
+  },
+
   breakpoints: {
     values: {
       xs: 0,
