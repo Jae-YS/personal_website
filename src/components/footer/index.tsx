@@ -1,5 +1,4 @@
-import { Box, Typography, Stack, Link as MuiLink } from "@mui/material";
-import InstagramIcon from "@mui/icons-material/Instagram";
+import { Box, Typography, useTheme } from "@mui/material";
 import DividerLine from "@/shared/DividerLine";
 import NavLinks from "@/components/navbar/NavLinks";
 import { SelectedPage } from "@/shared/types";
@@ -10,19 +9,20 @@ type Props = {
 };
 
 const Footer = ({ selectedPage, setSelectedPage }: Props) => {
+  const theme = useTheme();
+
   return (
     <Box
       component="footer"
       sx={{
-        bgcolor: "#f7f6f2",
-        py: 6,
-        fontFamily: `'Georgia', serif`,
+        bgcolor: theme.palette.background.default,
+        py: { xs: 6, md: 10 },
       }}
     >
-      {/* Centering Wrapper */}
+      <DividerLine sx={{ width: "100vw", mx: 0 }} />
       <Box
         sx={{
-          maxWidth: "1200px",
+          maxWidth: "100%",
           mx: "auto",
           display: "flex",
           flexDirection: "column",
@@ -31,14 +31,12 @@ const Footer = ({ selectedPage, setSelectedPage }: Props) => {
           px: 2,
         }}
       >
-        <DividerLine sx={{ width: "100vw", mx: 0 }} />
-
         {/* Logo Text */}
         <Typography
           variant="h1"
           sx={{
-            fontSize: { xs: "4rem", md: "8rem" },
-            fontWeight: 500,
+            fontSize: { xs: "3rem", sm: "5rem", md: "8rem" },
+            fontWeight: theme.typography.h1.fontWeight,
             letterSpacing: "0.05em",
             mt: 4,
           }}
@@ -52,7 +50,11 @@ const Footer = ({ selectedPage, setSelectedPage }: Props) => {
           setSelectedPage={setSelectedPage}
           direction="row"
           spacing={4}
-          sx={{ mt: 4, px: 2, fontSize: { xs: "0.875rem", md: "1rem" } }}
+          sx={{
+            mt: 4,
+            px: 2,
+            justifyContent: "center",
+          }}
         />
       </Box>
     </Box>

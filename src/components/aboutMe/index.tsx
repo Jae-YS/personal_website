@@ -1,6 +1,6 @@
 import { SelectedPage } from "@/shared/types";
 import { motion } from "framer-motion";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import headshot from "@/assets/headshot.jpg";
 
 type Props = {
@@ -8,8 +8,12 @@ type Props = {
 };
 
 const AboutMe = ({ setSelectedPage }: Props) => {
+  const theme = useTheme();
   return (
-    <motion.div onViewportEnter={() => setSelectedPage(SelectedPage.AboutMe)}>
+    <motion.div
+      viewport={{ once: true, amount: 0.8 }}
+      onViewportEnter={() => setSelectedPage(SelectedPage.AboutMe)}
+    >
       <Box
         id="aboutme"
         sx={{
@@ -17,7 +21,7 @@ const AboutMe = ({ setSelectedPage }: Props) => {
           flexDirection: { xs: "column", md: "row" },
           minHeight: "100vh",
           width: "100%",
-          m: 10,
+          my: theme.spacing(15),
         }}
       >
         {/* LEFT */}
@@ -25,26 +29,38 @@ const AboutMe = ({ setSelectedPage }: Props) => {
         <Box
           sx={{
             flex: 1,
-            px: { xs: 3, md: 6 },
-            py: { xs: 4, md: 8 },
+            px: { xs: theme.spacing(3), md: theme.spacing(6) },
+            py: { xs: theme.spacing(4), md: theme.spacing(8) },
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
           }}
         >
-          <Typography variant="h4" sx={{ mb: 2, fontWeight: 600 }}>
-            My name is Jae Young Seo
-          </Typography>
-          <Typography sx={{ mb: 2 }}>
-            I am a Computer Science and Mathematics with an emphasis on
-            Statistics double major attending Vassar College. I am currently a
-            senior interested in full-stack development or backend development,
-            but open to exploring other career paths. I am seeking Summer 2025
-            opportunities to gain the valuable experience I need to grow in the
-            ever-changing tech world.
-          </Typography>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.6 }}
+            variants={{
+              hidden: { opacity: 0, x: -50 },
+              visible: { opacity: 1, x: 0 },
+            }}
+          >
+            <Typography variant="h4" sx={{ mb: 2, fontWeight: 600 }}>
+              My name is Jae Young Seo
+            </Typography>
+            <Typography sx={{ mb: 2 }}>
+              I am a Computer Science and Mathematics with an emphasis on
+              Statistics double major attending Vassar College. I am currently a
+              senior interested in full-stack development or backend
+              development, but open to exploring other career paths. I am
+              seeking Summer 2025 opportunities to gain the valuable experience
+              I need to grow in the ever-changing tech world.
+            </Typography>
+          </motion.div>
         </Box>
-
+        {/* </motion.div>
+        </Box> */}
         {/* RIGHT */}
 
         <Box
@@ -53,9 +69,8 @@ const AboutMe = ({ setSelectedPage }: Props) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: "#f4f4f4",
-            px: { xs: 2, md: 4 },
-            py: { xs: 4, md: 8 },
+            px: { xs: theme.spacing(2), md: theme.spacing(4) },
+            py: { xs: theme.spacing(4), md: theme.spacing(8) },
           }}
         >
           <Box
@@ -67,7 +82,7 @@ const AboutMe = ({ setSelectedPage }: Props) => {
               maxWidth: "500px",
               height: "auto",
               objectFit: "contain",
-              borderRadius: "8px",
+              borderRadius: theme.shape.borderRadius,
             }}
           />
         </Box>

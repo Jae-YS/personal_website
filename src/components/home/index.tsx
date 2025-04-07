@@ -14,21 +14,14 @@ const Home = ({ setSelectedPage }: Props) => {
   const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
 
   return (
-    <Box
-      id="home"
-      sx={{
-        bgcolor: "grey.20",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
+    <Box id="home">
       <Box
         sx={{
           height: "100vh",
           width: "100vw",
           backgroundImage: `url(${backgroundImage})`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: isAboveMediumScreens ? "center" : "50% -20px",
           backgroundRepeat: "no-repeat",
           display: "flex",
           alignItems: "center",
@@ -54,8 +47,7 @@ const Home = ({ setSelectedPage }: Props) => {
           variant="h1"
           sx={{
             color: "white",
-            fontFamily: "Georgia, serif",
-            fontSize: { xs: "2.5rem", sm: "4rem", md: "6rem" },
+            fontSize: isAboveMediumScreens ? "6rem" : "3rem",
             fontWeight: 500,
             letterSpacing: "0.1em",
           }}
@@ -67,9 +59,9 @@ const Home = ({ setSelectedPage }: Props) => {
       <Box
         sx={{
           width: "100%",
-          maxWidth: "600px",
+          maxWidth: "100vw",
+          p: isAboveMediumScreens ? "2rem 4rem" : "1rem 2rem", // Adjust padding for larger screens
           mx: "auto",
-          px: 2,
         }}
       >
         <motion.div
@@ -93,10 +85,13 @@ const Home = ({ setSelectedPage }: Props) => {
           <h1
             style={{
               wordBreak: "break-word",
+              fontWeight: 500,
               fontSize: isAboveMediumScreens ? "3rem" : "1rem",
             }}
           >
-            BlobBlobBlobBlobBlobBlobBlobBlobBlobBlobBlobBlobBBlobBlobBlobBlobBlobBlobBlobBlobBlobBlobBlobBlobBlobBBlob
+            A quiet space with no thoughts, actions, or presence. Neither
+            beginning nor end, just stillness—an empty canvas untouched by
+            meaning, intention, or form. Pure, silent, infinite absence.{" "}
           </h1>
         </motion.div>
       </Box>

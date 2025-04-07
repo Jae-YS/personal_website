@@ -46,7 +46,7 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
           sx={{
             bgcolor: theme.palette.background.default,
             color: theme.palette.text.primary,
-            py: 1.5,
+            py: isAboveMediumScreens ? 1 : 0.75,
           }}
         >
           <Toolbar
@@ -55,6 +55,7 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
               width: "100%",
               mx: "auto",
               display: "flex",
+              alignItems: "center",
               justifyContent: "space-between",
             }}
           >
@@ -73,7 +74,7 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
                 selectedPage={selectedPage}
                 setSelectedPage={setSelectedPage}
                 direction="row"
-                spacing={4}
+                spacing={5}
               />
             ) : (
               <IconButton
@@ -136,8 +137,8 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
             },
           ]}
           sx={{
-            mt: 12,
-            fontSize: "5rem",
+            mt: isAboveMediumScreens ? 0 : theme.spacing(10),
+            fontSize: "1.25rem",
             alignItems: "start",
           }}
           onLinkClick={() => setIsMenuToggled(false)}

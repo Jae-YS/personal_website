@@ -49,6 +49,7 @@ const NavLinks = ({
             {icon}
             <Typography
               sx={{
+                fontSize: { xs: "0.875rem", md: "1rem" },
                 fontWeight: selectedPage === value ? 500 : 400,
                 color:
                   selectedPage === value
