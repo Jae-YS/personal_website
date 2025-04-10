@@ -21,7 +21,7 @@ const AboutMe = ({ setSelectedPage }: Props) => {
           flexDirection: { xs: "column", md: "row" },
           minHeight: "100vh",
           width: "100%",
-          my: theme.spacing(15),
+          mt: theme.spacing(15),
         }}
       >
         {/* LEFT */}

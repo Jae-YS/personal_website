@@ -8,6 +8,7 @@ import ContactMe from "@/components/contactMe";
 import Footer from "@/components/footer";
 import { SelectedPage } from "@/shared/types";
 import { Box } from "@mui/material";
+import DividerLine from "./shared/DividerLine";
 
 function App() {
   const theme = useTheme();
@@ -47,7 +48,9 @@ function App() {
 
       <Home setSelectedPage={setSelectedPage} />
       <AboutMe setSelectedPage={setSelectedPage} />
+      <DividerLine />
       <Work setSelectedPage={setSelectedPage} />
+      <DividerLine />
       <ContactMe setSelectedPage={setSelectedPage} />
       <Footer selectedPage={selectedPage} setSelectedPage={setSelectedPage} />
     </Box>

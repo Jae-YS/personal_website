@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Box, IconButton, Modal, useTheme } from "@mui/material";
-import Grid from "@mui/material/Grid";
+import { Box, IconButton, Modal, useTheme, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import CloseIcon from "@mui/icons-material/Close";
@@ -19,7 +18,6 @@ type Props = {
 
 const Work = ({ setSelectedPage }: Props) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const theme = useTheme();
 
   const handleClose = () => setActiveIndex(null);
   const handlePrev = () =>
@@ -29,34 +27,76 @@ const Work = ({ setSelectedPage }: Props) => {
 
   return (
     <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5 }}
+      variants={{
+        hidden: { opacity: 0, y: 30 },
+        visible: { opacity: 1, y: 0 },
+      }}
       onViewportEnter={() => setSelectedPage(SelectedPage.Work)}
-      viewport={{ once: false, amount: 0.3 }}
     >
-      <Grid container spacing={2} px={{ xs: 2, md: 4 }} py={4}>
+      <Box
+        id="work"
+        sx={{
+          pt: { xs: 10, md: 12 },
+          textAlign: "center",
+        }}
+      >
+        <Typography
+          variant="h4"
+          sx={{
+            fontFamily: "'Playfair Display', serif",
+            color: "black",
+            letterSpacing: "0.1em",
+            fontSize: { xs: "1.5rem", md: "3rem" },
+            fontWeight: 400,
+          }}
+        >
+          SELECTED WORK
+        </Typography>
+      </Box>
+
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: {
+            xs: "repeat(2, 1fr)",
+            sm: "repeat(2, 1fr)",
+            md: "repeat(3, 1fr)",
+          },
+          gap: 3,
+          px: { xs: 2, md: 4 },
+          py: 4,
+        }}
+      >
         {images.map((src, i) => (
-          <Grid container item xs={6} sm={6} md={4} key={i}>
-            <motion.div
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => setActiveIndex(i)}
-              style={{ cursor: "pointer", overflow: "hidden", borderRadius: 8 }}
-            >
-              <Box
-                component="img"
-                src={src}
-                alt={`Artwork ${i + 1}`}
-                sx={{
-                  width: "100%",
-                  height: "auto",
-                  objectFit: "cover",
-                  display: "block",
-                  borderRadius: 2,
-                }}
-              />
-            </motion.div>
-          </Grid>
+          <motion.div
+            key={i}
+            // whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => setActiveIndex(i)}
+            style={{
+              cursor: "pointer",
+              overflow: "hidden",
+            }}
+          >
+            <Box
+              component="img"
+              src={src}
+              alt={`Artwork ${i + 1}`}
+              sx={{
+                width: "100%",
+                height: "100%",
+                aspectRatio: "1 / 1.2",
+                objectFit: "cover",
+                display: "block",
+              }}
+            />
+          </motion.div>
         ))}
-      </Grid>
+      </Box>
 
       {/* Modal */}
       <Modal open={activeIndex !== null} onClose={handleClose}>
@@ -67,7 +107,8 @@ const Work = ({ setSelectedPage }: Props) => {
             left: 0,
             width: "100vw",
             height: "100vh",
-            bgcolor: "rgba(0,0,0,0.95)",
+            backdropFilter: "blur(10px)",
+            backgroundColor: "rgba(255, 255, 255, 0.4)", // soft glass
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -78,6 +119,7 @@ const Work = ({ setSelectedPage }: Props) => {
             onClick={handleClose}
             sx={{
               position: "absolute",
+              cursor: "pointer",
               top: 20,
               right: 20,
               color: "#fff",
@@ -89,7 +131,12 @@ const Work = ({ setSelectedPage }: Props) => {
 
           <IconButton
             onClick={handlePrev}
-            sx={{ position: "absolute", left: 20, color: "#fff" }}
+            sx={{
+              cursor: "pointer",
+              position: "absolute",
+              left: 20,
+              color: "#fff",
+            }}
           >
             <ArrowBackIosNewIcon />
           </IconButton>
@@ -102,10 +149,11 @@ const Work = ({ setSelectedPage }: Props) => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
             style={{
-              maxHeight: "90%",
-              maxWidth: "90%",
+              width: "100%",
+              height: "100%",
+              maxWidth: "95%",
+              maxHeight: "97%",
               objectFit: "contain",
-              borderRadius: 8,
             }}
           />
 
