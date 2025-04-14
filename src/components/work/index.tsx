@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, IconButton, Modal, useTheme, Typography } from "@mui/material";
+import { Box, IconButton, Modal, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import CloseIcon from "@mui/icons-material/Close";
