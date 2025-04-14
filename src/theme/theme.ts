@@ -50,8 +50,8 @@ const theme = createTheme({
   typography: {
     fontFamily: '"Playfair Display", serif',
     h1: {
+      fontSize: "clamp(1.5rem, 5vw, 3rem)",
       fontWeight: 600,
-      fontSize: "3rem",
     },
     h5: {
       fontWeight: 400,

@@ -107,8 +107,7 @@ const Work = ({ setSelectedPage }: Props) => {
             left: 0,
             width: "100vw",
             height: "100vh",
-            backdropFilter: "blur(10px)",
-            backgroundColor: "rgba(255, 255, 255, 0.4)", // soft glass
+            backgroundColor: "rgba(255, 255, 255)", // soft glass
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -122,7 +121,7 @@ const Work = ({ setSelectedPage }: Props) => {
               cursor: "pointer",
               top: 20,
               right: 20,
-              color: "#fff",
+              color: "#000",
               zIndex: 2100,
             }}
           >

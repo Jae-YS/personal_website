@@ -38,7 +38,11 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
           pointerEvents: isAboveMediumScreens && isTopOfPage ? "none" : "auto",
         }}
         transition={{ duration: 0.2, ease: "easeInOut" }}
-        style={{ position: "fixed", width: "100%", zIndex: 1300 }}
+        style={{
+          position: "fixed",
+          width: "100%",
+          zIndex: 1300,
+        }}
       >
         <AppBar
           position="fixed"

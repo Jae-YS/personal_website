@@ -17,11 +17,21 @@ const Home = ({ setSelectedPage }: Props) => {
     <Box id="home">
       <Box
         sx={{
-          height: "100vh",
+          minHeight: "100vh",
+          scrollMarginTop: "64px",
           width: "100vw",
           backgroundImage: `url(${backgroundImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: isAboveMediumScreens ? "center" : "50% -20px",
+          backgroundSize: {
+            xs: "cover",
+            sm: "120% 120%",
+            md: "150% 130%",
+            lg: "cover",
+          },
+          backgroundPosition: {
+            xs: "50% -50%",
+            sm: "center",
+            md: "center",
+          },
           backgroundRepeat: "no-repeat",
           display: "flex",
           alignItems: "center",
@@ -29,7 +39,7 @@ const Home = ({ setSelectedPage }: Props) => {
           flexDirection: "column",
           textAlign: "center",
           overflowX: "hidden",
-          px: 2,
+          position: "relative",
         }}
       >
         <Typography
@@ -47,7 +57,7 @@ const Home = ({ setSelectedPage }: Props) => {
           variant="h1"
           sx={{
             color: "white",
-            fontSize: isAboveMediumScreens ? "6rem" : "3rem",
+            fontSize: { sm: "3rem", md: "5rem", lg: "6rem" },
             fontWeight: 500,
             letterSpacing: "0.1em",
           }}
@@ -60,7 +70,7 @@ const Home = ({ setSelectedPage }: Props) => {
         sx={{
           width: "100%",
           maxWidth: "100vw",
-          p: isAboveMediumScreens ? "2rem 4rem" : "1rem 2rem", // Adjust padding for larger screens
+          p: { xs: "0.5rem 1rem", md: "2rem 2rem", lg: "3rem 4rem" },
           mx: "auto",
         }}
       >
@@ -70,7 +80,7 @@ const Home = ({ setSelectedPage }: Props) => {
             flexDirection: "column",
             alignItems: "flex-start",
             justifyContent: "start",
-            minHeight: isAboveMediumScreens ? "60vh" : "40vh",
+            minHeight: isAboveMediumScreens ? "40vh" : "30vh",
           }}
           onViewportEnter={() => setSelectedPage(SelectedPage.Home)}
           initial="hidden"
@@ -82,17 +92,17 @@ const Home = ({ setSelectedPage }: Props) => {
             visible: { opacity: 1, x: 0 },
           }}
         >
-          <h1
-            style={{
+          <Typography
+            variant="h1"
+            sx={{
               wordBreak: "break-word",
               fontWeight: 500,
-              fontSize: isAboveMediumScreens ? "3rem" : "1rem",
             }}
           >
             A quiet space with no thoughts, actions, or presence. Neither
             beginning nor end, just stillness—an empty canvas untouched by
             meaning, intention, or form. Pure, silent, infinite absence.{" "}
-          </h1>
+          </Typography>
         </motion.div>
       </Box>
     </Box>
