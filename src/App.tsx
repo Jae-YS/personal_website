@@ -1,60 +1,31 @@
-import { useEffect, useState } from "react";
-import { useTheme } from "@mui/material";
-import Navbar from "@/components/navbar";
-import Home from "@/components/home";
-import AboutMe from "@/components/aboutMe";
-import Work from "@/components/work";
-import ContactMe from "@/components/contactMe";
-import Footer from "@/components/footer";
+import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import Layout from "@/layout";
+import HomePage from "@/pages/HomePage";
+import AcrylicGallery from "@/pages/AcrylicGallery";
+import OilGallery from "@/pages/OilGallery";
 import { SelectedPage } from "@/shared/types";
-import { Box } from "@mui/material";
-import DividerLine from "./shared/DividerLine";
 
-function App() {
-  const theme = useTheme();
+const App = () => {
   const [selectedPage, setSelectedPage] = useState<SelectedPage>(
     SelectedPage.Home
   );
-  const [isTopOfPage, setIsTopOfPage] = useState<boolean>(true);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY === 0) {
-        setIsTopOfPage(true);
-        setSelectedPage(SelectedPage.Home);
-      } else {
-        setIsTopOfPage(false);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
-    <Box
-      sx={{
-        bgcolor: theme.palette.background.default,
-        minHeight: "100vh",
-        width: "100%",
-        overflowX: "hidden",
-        fontFamily: theme.typography.fontFamily,
-      }}
-    >
-      <Navbar
-        isTopOfPage={isTopOfPage}
-        selectedPage={selectedPage}
-        setSelectedPage={setSelectedPage}
-      />
-
-      <Home setSelectedPage={setSelectedPage} />
-      <AboutMe setSelectedPage={setSelectedPage} />
-      <DividerLine />
-      <Work setSelectedPage={setSelectedPage} />
-      <DividerLine />
-      <ContactMe setSelectedPage={setSelectedPage} />
-      <Footer selectedPage={selectedPage} setSelectedPage={setSelectedPage} />
-    </Box>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage setSelectedPage={setSelectedPage} />} />
+        <Route
+          path="work/acrylic"
+          element={<AcrylicGallery setSelectedPage={setSelectedPage} />}
+        />
+        <Route
+          path="work/oil"
+          element={<OilGallery setSelectedPage={setSelectedPage} />}
+        />
+      </Route>
+    </Routes>
   );
-}
+};
 
 export default App;

@@ -110,13 +110,13 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
         onClose={() => setIsMenuToggled(false)}
         PaperProps={{
           sx: {
-            width: 250,
+            width: "100%",
             bgcolor: theme.palette.background.default,
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-start",
             alignItems: "center",
-            pt: 2,
+            pt: 4,
           },
         }}
       >
@@ -125,7 +125,7 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
           selectedPage={selectedPage}
           setSelectedPage={setSelectedPage}
           direction="column"
-          spacing={3}
+          spacing={4}
           pages={[
             { label: "Home", value: SelectedPage.Home, icon: <HomeIcon /> },
             {
@@ -142,8 +142,6 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
           ]}
           sx={{
             mt: isAboveMediumScreens ? 0 : theme.spacing(10),
-            fontSize: "1.25rem",
-            alignItems: "start",
           }}
           onLinkClick={() => setIsMenuToggled(false)}
         />

@@ -1,30 +1,15 @@
-import { useState } from "react";
-import { Box, IconButton, Modal, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import CloseIcon from "@mui/icons-material/Close";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { SelectedPage } from "@/shared/types";
+import { Link } from "react-router-dom";
 import image1 from "@/assets/download-1.png";
 import image2 from "@/assets/download-2.png";
-import image3 from "@/assets/download-3.png";
-import image4 from "@/assets/download.png";
-
-const images = [image1, image2, image3, image4];
+import { SelectedPage } from "@/shared/types";
 
 type Props = {
   setSelectedPage: (value: SelectedPage) => void;
 };
 
 const Work = ({ setSelectedPage }: Props) => {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
-  const handleClose = () => setActiveIndex(null);
-  const handlePrev = () =>
-    setActiveIndex((prev) => (prev! - 1 + images.length) % images.length);
-  const handleNext = () =>
-    setActiveIndex((prev) => (prev! + 1) % images.length);
-
   return (
     <motion.div
       initial="hidden"
@@ -37,11 +22,13 @@ const Work = ({ setSelectedPage }: Props) => {
       }}
       onViewportEnter={() => setSelectedPage(SelectedPage.Work)}
     >
+      {/* Header */}
       <Box
         id="work"
         sx={{
           pt: { xs: 10, md: 12 },
           textAlign: "center",
+          pb: 6,
         }}
       >
         <Typography
@@ -58,112 +45,109 @@ const Work = ({ setSelectedPage }: Props) => {
         </Typography>
       </Box>
 
+      {/* Tile Container */}
+
       <Box
         sx={{
-          display: "grid",
-          gridTemplateColumns: {
-            xs: "repeat(2, 1fr)",
-            sm: "repeat(2, 1fr)",
-            md: "repeat(3, 1fr)",
+          display: "flex",
+          flexDirection: {
+            xs: "column",
+            sm: "column",
+            md: "column",
+            lg: "row",
           },
-          gap: 3,
-          px: { xs: 2, md: 4 },
-          py: 4,
+          gap: { sm: "1rem", md: "1rem" },
+          maxWidth: "100%",
+          margin: "0 auto",
+          padding: "0 2rem",
         }}
       >
-        {images.map((src, i) => (
-          <motion.div
-            key={i}
-            // whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => setActiveIndex(i)}
-            style={{
-              cursor: "pointer",
-              overflow: "hidden",
-            }}
-          >
-            <Box
-              component="img"
-              src={src}
-              alt={`Artwork ${i + 1}`}
-              sx={{
-                width: "100%",
-                height: "100%",
-                aspectRatio: "1 / 1.2",
-                objectFit: "cover",
-                display: "block",
-              }}
-            />
-          </motion.div>
-        ))}
-      </Box>
-
-      {/* Modal */}
-      <Modal open={activeIndex !== null} onClose={handleClose}>
+        {/* Acrylic */}
         <Box
           sx={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            backgroundColor: "rgba(255, 255, 255)", // soft glass
+            flex: 1,
             display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 2000,
+            flexDirection: "column",
           }}
         >
-          <IconButton
-            onClick={handleClose}
-            sx={{
-              position: "absolute",
-              cursor: "pointer",
-              top: 20,
-              right: 20,
-              color: "#000",
-              zIndex: 2100,
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
-
-          <IconButton
-            onClick={handlePrev}
-            sx={{
-              cursor: "pointer",
-              position: "absolute",
-              left: 20,
-              color: "#fff",
-            }}
-          >
-            <ArrowBackIosNewIcon />
-          </IconButton>
-
-          <motion.img
-            key={activeIndex}
-            src={images[activeIndex ?? 0]}
-            alt={`Fullscreen image ${activeIndex}`}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3 }}
-            style={{
-              width: "100%",
-              height: "100%",
-              maxWidth: "95%",
-              maxHeight: "97%",
-              objectFit: "contain",
-            }}
-          />
-
-          <IconButton
-            onClick={handleNext}
-            sx={{ position: "absolute", right: 20, color: "#fff" }}
-          >
-            <ArrowForwardIosIcon />
-          </IconButton>
+          <Link to="/work/acrylic" style={{ textDecoration: "none" }}>
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              style={{
+                width: "100%",
+                overflow: "hidden",
+                margin: "0 auto",
+                padding: "0 1rem",
+              }}
+            >
+              <Box
+                component="img"
+                src={image1}
+                alt="Acrylic"
+                sx={{
+                  width: "100%",
+                  height: { xs: "40vh", md: "60vh" }, // much smaller
+                  objectFit: "cover",
+                }}
+              />
+            </motion.div>
+            <Typography
+              sx={{
+                textAlign: "center",
+                py: 2,
+                color: "black",
+                fontFamily: "'Playfair Display', serif",
+                fontSize: "1.25rem",
+              }}
+            >
+              ACRYLIC ON CANVAS
+            </Typography>
+          </Link>
         </Box>
-      </Modal>
+
+        {/* Oil */}
+        <Box
+          sx={{
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Link to="/work/oil" style={{ textDecoration: "none" }}>
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              style={{
+                width: "100%",
+                overflow: "hidden",
+                margin: "0 auto",
+                padding: "0 1rem",
+              }}
+            >
+              <Box
+                component="img"
+                src={image2}
+                alt="Oil"
+                sx={{
+                  width: "100%",
+                  height: { xs: "40vh", md: "60vh" },
+                  objectFit: "cover",
+                }}
+              />
+            </motion.div>
+            <Typography
+              sx={{
+                textAlign: "center",
+                py: 2,
+                color: "black",
+                fontFamily: "'Playfair Display', serif",
+                fontSize: "1.25rem",
+              }}
+            >
+              OIL ON CANVAS
+            </Typography>
+          </Link>
+        </Box>
+      </Box>
     </motion.div>
   );
 };
