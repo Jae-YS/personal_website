@@ -1,10 +1,11 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "@/components/navbar/NavBar";
 import Footer from "@/components/footer";
 import { useState, useEffect } from "react";
 import { SelectedPage } from "@/shared/types";
 
 const Layout = () => {
+  const location = useLocation();
   const [selectedPage, setSelectedPage] = useState<SelectedPage>(
     SelectedPage.Home
   );
@@ -12,16 +13,27 @@ const Layout = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY === 0) {
+      if (!location.pathname.startsWith("/work") && window.scrollY === 0) {
         setIsTopOfPage(true);
-        setSelectedPage(SelectedPage.Home);
+        if (location.pathname === "/") {
+          setSelectedPage(SelectedPage.Home);
+        }
       } else {
         setIsTopOfPage(false);
       }
+
+      if (
+        location.pathname.startsWith("/work") &&
+        selectedPage !== SelectedPage.Work
+      ) {
+        setSelectedPage(SelectedPage.Work);
+      }
     };
+
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [location.pathname]);
 
   return (
     <>

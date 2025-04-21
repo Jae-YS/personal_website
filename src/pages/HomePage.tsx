@@ -4,15 +4,16 @@ import AboutMe from "@/components/aboutMe";
 import Work from "@/components/work";
 import ContactMe from "@/components/contactMe";
 import DividerLine from "@/shared/DividerLine";
+import { useOutletContext } from "react-router-dom";
 import { Box, useTheme } from "@mui/material";
 import { SelectedPage } from "@/shared/types";
 
-type Props = {
-  setSelectedPage: (value: SelectedPage) => void;
-};
-
-const HomePage = ({ setSelectedPage }: Props) => {
+const HomePage = () => {
   const theme = useTheme();
+  const { selectedPage, setSelectedPage } = useOutletContext<{
+    selectedPage: SelectedPage.Home;
+    setSelectedPage: (value: SelectedPage) => void;
+  }>();
 
   return (
     <Box

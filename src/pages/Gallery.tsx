@@ -1,29 +1,68 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation, useOutletContext } from "react-router-dom";
 import { Box, IconButton, Modal, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { SelectedPage } from "@/shared/types";
-import image1 from "@/assets/download-1.png";
-import image2 from "@/assets/download-2.png";
-import image3 from "@/assets/download-3.png";
-import image4 from "@/assets/download.png";
 
-const images = [image1, image2, image3, image4];
+import acrylic1 from "@/assets/download-1.png";
+import acrylic2 from "@/assets/download-2.png";
+import acrylic3 from "@/assets/download-3.png";
+import acrylic4 from "@/assets/download.png";
 
-type Props = {
-  setSelectedPage: (value: SelectedPage) => void;
+import oil1 from "@/assets/download-1.png";
+import oil2 from "@/assets/download-1.png";
+import oil3 from "@/assets/download-1.png";
+import oil4 from "@/assets/download-1.png";
+
+const galleryMap = {
+  acrylic: {
+    title: "ACRYLIC ON CANVAS",
+    images: [acrylic1, acrylic2, acrylic3, acrylic4],
+  },
+  oil: {
+    title: "OIL ON CANVAS",
+    images: [oil1, oil2, oil3, oil4],
+  },
 };
 
-const AcrylicGallery = ({ setSelectedPage }: Props) => {
+const Gallery = () => {
+  const location = useLocation();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  useOutletContext<{
+    selectedPage: SelectedPage;
+    setSelectedPage: (value: SelectedPage) => void;
+  }>();
+
+  // get the route key: 'acrylic' or 'oil'
+  const type = location.pathname.includes("acrylic") ? "acrylic" : "oil";
+  const { title, images } = galleryMap[type];
 
   const handleClose = () => setActiveIndex(null);
   const handlePrev = () =>
     setActiveIndex((prev) => (prev! - 1 + images.length) % images.length);
   const handleNext = () =>
     setActiveIndex((prev) => (prev! + 1) % images.length);
+
+  // ✅ Add this useEffect
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (activeIndex === null) return; // only listen when modal is open
+
+      if (e.key === "ArrowRight") {
+        handleNext();
+      } else if (e.key === "ArrowLeft") {
+        handlePrev();
+      } else if (e.key === "Escape") {
+        handleClose();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeIndex]);
 
   return (
     <motion.div
@@ -35,15 +74,9 @@ const AcrylicGallery = ({ setSelectedPage }: Props) => {
         hidden: { opacity: 0, y: 30 },
         visible: { opacity: 1, y: 0 },
       }}
-      onViewportEnter={() => setSelectedPage(SelectedPage.Work)}
     >
-      <Box
-        id="work"
-        sx={{
-          pt: { xs: 10, md: 12 },
-          textAlign: "center",
-        }}
-      >
+      {/* Header */}
+      <Box id="work" sx={{ pt: { xs: 10, md: 12 }, textAlign: "center" }}>
         <Typography
           variant="h4"
           sx={{
@@ -54,10 +87,11 @@ const AcrylicGallery = ({ setSelectedPage }: Props) => {
             fontWeight: 400,
           }}
         >
-          SELECTED WORK
+          {title}
         </Typography>
       </Box>
 
+      {/* Image Grid */}
       <Box
         sx={{
           display: "grid",
@@ -74,7 +108,6 @@ const AcrylicGallery = ({ setSelectedPage }: Props) => {
         {images.map((src, i) => (
           <motion.div
             key={i}
-            // whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => setActiveIndex(i)}
             style={{
@@ -107,7 +140,7 @@ const AcrylicGallery = ({ setSelectedPage }: Props) => {
             left: 0,
             width: "100vw",
             height: "100vh",
-            backgroundColor: "rgba(255, 255, 255)", // soft glass
+            backgroundColor: "rgba(255, 255, 255)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -118,7 +151,6 @@ const AcrylicGallery = ({ setSelectedPage }: Props) => {
             onClick={handleClose}
             sx={{
               position: "absolute",
-              cursor: "pointer",
               top: 20,
               right: 20,
               color: "#000",
@@ -127,19 +159,12 @@ const AcrylicGallery = ({ setSelectedPage }: Props) => {
           >
             <CloseIcon />
           </IconButton>
-
           <IconButton
             onClick={handlePrev}
-            sx={{
-              cursor: "pointer",
-              position: "absolute",
-              left: 20,
-              color: "#fff",
-            }}
+            sx={{ position: "absolute", left: 20, color: "#000" }}
           >
             <ArrowBackIosNewIcon />
           </IconButton>
-
           <motion.img
             key={activeIndex}
             src={images[activeIndex ?? 0]}
@@ -155,10 +180,9 @@ const AcrylicGallery = ({ setSelectedPage }: Props) => {
               objectFit: "contain",
             }}
           />
-
           <IconButton
             onClick={handleNext}
-            sx={{ position: "absolute", right: 20, color: "#fff" }}
+            sx={{ position: "absolute", right: 20, color: "#000" }}
           >
             <ArrowForwardIosIcon />
           </IconButton>
@@ -168,4 +192,4 @@ const AcrylicGallery = ({ setSelectedPage }: Props) => {
   );
 };
 
-export default AcrylicGallery;
+export default Gallery;

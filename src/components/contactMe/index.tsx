@@ -47,31 +47,28 @@ const ContactMe = ({ setSelectedPage }: Props) => {
             py: { xs: 4, md: 8 },
           }}
         >
-          <Box
-            component="img"
-            src={image1}
-            alt="artwork"
-            sx={{
-              width: "100%",
-              maxWidth: "500px",
-              height: "auto",
-              objectFit: "contain",
-              borderRadius: "8px",
-            }}
-          />
-
-          <Typography
-            variant="caption"
-            sx={{
-              mt: 1,
-              color: theme.palette.text.secondary,
-              fontSize: isAboveMediumScreens ? "1rem" : "0.75rem",
-              fontWeight: 400,
-              textAlign: "center",
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.6 }}
+            variants={{
+              hidden: { opacity: 0, x: -50 },
+              visible: { opacity: 1, x: 0 },
             }}
           >
-            Untitled, 2024 — Mixed media on canvas
-          </Typography>
+            <Typography variant="h4" sx={{ mb: 2, fontWeight: 600 }}>
+              For inquires about event or press opportunities, please feel free
+              to reach out here. If you’re interested in 1:1 coaching, you can
+              go ahead and schedule your free consultation now.
+            </Typography>
+
+            {isAboveMediumScreens && (
+              <Box
+                sx={{ borderTop: "1px solid black", my: 4, width: "100%" }}
+              />
+            )}
+          </motion.div>
         </Box>
 
         {/* RIGHT */}
@@ -95,13 +92,11 @@ const ContactMe = ({ setSelectedPage }: Props) => {
               visible: { opacity: 1, x: 0 },
             }}
           >
-            <Typography variant="h4" sx={{ mb: 2, fontWeight: 600 }}>
-              Contact Me (Text to replace)
-            </Typography>
-            <Typography sx={{ mb: 2 }}>Need to replace this text</Typography>
-
-            <Box sx={{ borderTop: "1px solid black", my: 4, width: "100%" }} />
-
+            {isAboveMediumScreens && (
+              <Box
+                sx={{ borderTop: "1px solid black", my: 4, width: "100%" }}
+              />
+            )}
             <Stack spacing={1} sx={{ mb: 4 }}>
               <Typography>123 Demo Street</Typography>
               <Typography>Los Angeles, California</Typography>
