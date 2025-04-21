@@ -10,8 +10,8 @@ import { SelectedPage } from "@/shared/types";
 
 const HomePage = () => {
   const theme = useTheme();
-  const { selectedPage, setSelectedPage } = useOutletContext<{
-    selectedPage: SelectedPage.Home;
+  const { setSelectedPage } = useOutletContext<{
+    selectedPage: SelectedPage;
     setSelectedPage: (value: SelectedPage) => void;
   }>();
 
