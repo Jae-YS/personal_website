@@ -1,16 +1,8 @@
 import { SelectedPage } from "@/shared/types";
 import { motion } from "framer-motion";
-import {
-  Box,
-  Link,
-  Stack,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Box, Link, Stack, Typography, useMediaQuery } from "@mui/material";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import image1 from "@/assets/download-1.png";
 
 type Props = {
   setSelectedPage: (value: SelectedPage) => void;
@@ -18,7 +10,6 @@ type Props = {
 
 const ContactMe = ({ setSelectedPage }: Props) => {
   const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
-  const theme = useTheme();
 
   return (
     <motion.div
