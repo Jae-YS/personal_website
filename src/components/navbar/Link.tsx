@@ -1,5 +1,6 @@
 import { useTheme } from "@mui/material";
 import AnchorLink from "react-anchor-link-smooth-scroll";
+import { useLocation, useNavigate } from "react-router-dom";
 import { SelectedPage } from "@/shared/types";
 
 type Props = {
@@ -11,33 +12,50 @@ type Props = {
 
 const Link = ({ page, selectedPage, setSelectedPage, children }: Props) => {
   const theme = useTheme();
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const lowerCasePage = page.toLowerCase().replace(/ /g, "") as SelectedPage;
   const isSelected = selectedPage === lowerCasePage;
+  const isAnchorTarget = ["home", "aboutme", "work", "contactme"].includes(
+    lowerCasePage
+  );
+
+  const handleClick = () => {
+    setSelectedPage(lowerCasePage);
+
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        const anchor = document.getElementById(lowerCasePage);
+        if (anchor) anchor.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    }
+  };
+
+  const style = {
+    cursor: "pointer",
+    textDecoration: "none",
+    transition: "color 0.3s ease",
+    color: isSelected ? theme.palette.primary.main : theme.palette.text.primary,
+  };
+
+  if (location.pathname === "/" && isAnchorTarget) {
+    return (
+      <AnchorLink
+        href={`#${lowerCasePage}`}
+        onClick={handleClick}
+        style={style}
+      >
+        {children ?? page}
+      </AnchorLink>
+    );
+  }
 
   return (
-    <AnchorLink
-      href={`#${lowerCasePage}`}
-      onClick={() => setSelectedPage(lowerCasePage)}
-      style={{
-        cursor: "pointer",
-        textDecoration: "none",
-        transition: "color 0.3s ease",
-        color: isSelected
-          ? theme.palette.primary.main
-          : theme.palette.text.primary,
-      }}
-      onMouseEnter={(e) =>
-        ((e.currentTarget as HTMLElement).style.color =
-          theme.palette.primary.light)
-      }
-      onMouseLeave={(e) =>
-        ((e.currentTarget as HTMLElement).style.color = isSelected
-          ? theme.palette.primary.main
-          : theme.palette.text.primary)
-      }
-    >
+    <span onClick={handleClick} style={style}>
       {children ?? page}
-    </AnchorLink>
+    </span>
   );
 };
 
