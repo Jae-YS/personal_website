@@ -1,4 +1,3 @@
-// theme/theme.ts
 import { createTheme } from "@mui/material/styles";
 
 // Extend custom palette if needed
@@ -17,11 +16,6 @@ declare module "@mui/material/styles" {
   }
 }
 
-// theme.palette.primary.main
-//           : theme.palette.text.primary,
-
-
-
 const theme = createTheme({
   palette: {
     primary: {
@@ -36,7 +30,7 @@ const theme = createTheme({
     },
     grey: {
       100: "#DFCCCC",
-      500: "#8C8C8C"
+      500: "#8C8C8C",
     },
     customColors: {
       grey20: "#F8F4EB",
@@ -48,7 +42,7 @@ const theme = createTheme({
   },
 
   typography: {
-    fontFamily: '"Playfair Display", serif',
+    fontFamily: '"Inter", sans-serif',
     h1: {
       fontSize: "clamp(1.5rem, 5vw, 3rem)",
       fontWeight: 600,
@@ -60,6 +54,9 @@ const theme = createTheme({
     body1: {
       fontSize: "1rem",
     },
+    button: {
+      fontWeight: 600,
+    },
   },
 
   shape: {
@@ -70,7 +67,7 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: "none", 
+          textTransform: "none",
           fontWeight: 600,
           borderRadius: 8,
         },
@@ -88,13 +85,6 @@ const theme = createTheme({
           },
         },
       ],
-    },
-    MuiTypography: {
-      styleOverrides: {
-        root: {
-          fontFamily: '"Playfair Display", serif',
-        },
-      },
     },
     MuiDrawer: {
       styleOverrides: {

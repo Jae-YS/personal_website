@@ -50,12 +50,21 @@ const AboutMe = ({ setSelectedPage }: Props) => {
               My name is Jae Young Seo
             </Typography>
             <Typography sx={{ mb: 2 }}>
-              I am a Computer Science and Mathematics with an emphasis on
-              Statistics double major attending Vassar College. I am currently a
-              senior interested in full-stack development or backend
-              development, but open to exploring other career paths. I am
-              seeking Summer 2025 opportunities to gain the valuable experience
-              I need to grow in the ever-changing tech world.
+              I'm currently seeking entry-level full-stack or backend
+              engineering roles where I can apply my experience, contribute
+              meaningfully, and continue learning in a collaborative, fast-paced
+              environment. As a Research Assistant, I designed ParV2, a
+              runtime-based concurrency abstraction in Go that enables safe
+              parallel execution of multiple functions. This project addressed a
+              core limitation in Go’s concurrency model and laid the groundwork
+              for ongoing research into Artificial Neural Networks. Outside of
+              research, I built FitTrack AI, a full-stack platform that helps
+              runners train for half marathons using real-time feedback and AI
+              support. The app generates adaptive training plans based on mood,
+              sleep, and prior workout data. These projects reflect my ability
+              to operate across the stack - from designing low-level systems to
+              deploying AI-powered user applications - with a focus on
+              thoughtful engineering, adaptability, and real-world impact.
             </Typography>
           </motion.div>
         </Box>

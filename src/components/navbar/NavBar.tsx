@@ -3,7 +3,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { motion } from "framer-motion";
 import { SelectedPage } from "@/shared/types";
 import useMediaQuery from "@/hooks/useMediaQuery";
-import NavLinks from "@/components/navbar/NavLinks";
+import NavLinks from "@/components/Navbar/NavLinks";
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import WorkIcon from "@mui/icons-material/Work";
@@ -69,7 +69,7 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
               selectedPage={selectedPage}
               setSelectedPage={setSelectedPage}
             >
-              <Typography variant="h5">AKN</Typography>
+              <Typography variant="h5">JYS</Typography>
             </Link>
 
             {/* Navigation or Menu Icon */}

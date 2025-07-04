@@ -1,5 +1,5 @@
 import { Stack, Typography, useTheme } from "@mui/material";
-import Link from "@/components/navbar/Link";
+import Link from "@/components/Navbar/Link";
 import { SelectedPage } from "@/shared/types";
 
 type PageItem = {

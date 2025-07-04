@@ -62,7 +62,7 @@ const Home = ({ setSelectedPage }: Props) => {
             letterSpacing: "0.1em",
           }}
         >
-          Ava Novak
+          Jae Young Seo
         </Typography>
       </Box>
 

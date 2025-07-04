@@ -1,6 +1,6 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import DividerLine from "@/shared/DividerLine";
-import NavLinks from "@/components/navbar/NavLinks";
+import NavLinks from "@/components/Navbar/NavLinks";
 import { SelectedPage } from "@/shared/types";
 
 type Props = {

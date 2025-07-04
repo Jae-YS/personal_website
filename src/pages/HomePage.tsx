@@ -1,8 +1,8 @@
 // src/pages/HomePage.tsx
-import Home from "@/components/mainView";
-import AboutMe from "@/components/aboutMe";
-import Work from "@/components/work";
-import ContactMe from "@/components/contactMe";
+import Home from "@/components/Hero/Hero";
+import AboutMe from "@/components/AboutMe/AboutMe";
+import Work from "@/components/Projects/Projects";
+import ContactMe from "@/components/Contact/Contact";
 import DividerLine from "@/shared/DividerLine";
 import { useOutletContext } from "react-router-dom";
 import { Box, useTheme } from "@mui/material";

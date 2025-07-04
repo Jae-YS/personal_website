@@ -91,8 +91,8 @@ const ContactMe = ({ setSelectedPage }: Props) => {
             <Stack spacing={1} sx={{ mb: 4 }}>
               <Typography>123 Demo Street</Typography>
               <Typography>Los Angeles, California</Typography>
-              <Typography>(555) 555-5555</Typography>
-              <Typography>email@example.com</Typography>
+              <Typography>(518) 650-5837</Typography>
+              <Typography>jae.jy.seo@gmail.com</Typography>
             </Stack>
 
             <Stack direction="row" spacing={2} justifyContent="center">
