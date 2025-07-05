@@ -1,8 +1,15 @@
 import { SelectedPage } from "@/shared/types";
-import { motion } from "framer-motion";
-import { Box, Link, Stack, Typography, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Button,
+  Link,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import { Email, GitHub } from "@mui/icons-material";
 
 type Props = {
   setSelectedPage: (value: SelectedPage) => void;
@@ -63,6 +70,22 @@ const ContactMe = ({ setSelectedPage }: Props) => {
         </Box>
 
         {/* RIGHT */}
+        <Button
+          href="https://github.com/yourusername"
+          target="_blank"
+          rel="noopener"
+          variant="outlined"
+          sx={{ minWidth: "40px", borderRadius: "50%" }}
+        >
+          <GitHub />
+        </Button>
+        <Button
+          href="mailto:you@example.com"
+          variant="outlined"
+          sx={{ minWidth: "40px", borderRadius: "50%" }}
+        >
+          <Email />
+        </Button>
         <Box
           sx={{
             flex: 1,

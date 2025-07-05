@@ -1,13 +1,4 @@
-import { useState } from "react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
-import { motion } from "framer-motion";
-import { SelectedPage } from "@/shared/types";
-import useMediaQuery from "@/hooks/useMediaQuery";
-import NavLinks from "@/components/Navbar/NavLinks";
-import HomeIcon from "@mui/icons-material/Home";
-import InfoIcon from "@mui/icons-material/Info";
-import WorkIcon from "@mui/icons-material/Work";
-import ContactMailIcon from "@mui/icons-material/ContactMail";
+import { useEffect, useRef, useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -15,34 +6,82 @@ import {
   IconButton,
   Drawer,
   useTheme,
+  useMediaQuery,
 } from "@mui/material";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
+import NavLinks from "@/components/Navbar/NavLinks";
+import FloatingSidebar from "@/components/Navbar/FloatingSideBar";
+import { SelectedPage } from "@/shared/types";
 import Link from "./Link";
+import gsap from "gsap";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+
+gsap.registerPlugin(ScrollToPlugin);
 
 type Props = {
-  isTopOfPage: boolean;
   selectedPage: SelectedPage;
   setSelectedPage: (value: SelectedPage) => void;
 };
 
-const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
+const Navbar = ({ selectedPage, setSelectedPage }: Props) => {
   const [isMenuToggled, setIsMenuToggled] = useState(false);
-  const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
+  const [showSidebar, setShowSidebar] = useState(false);
   const theme = useTheme();
+  const isAboveMediumScreens = useMediaQuery("(min-width:1060px)");
+  const navbarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let scrollTimeout: NodeJS.Timeout;
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+
+      if (!navbarRef.current) return;
+
+      if (scrollY === 0) {
+        gsap.to(navbarRef.current, {
+          y: 0,
+          opacity: 1,
+          duration: 0.4,
+          ease: "power2.out",
+          pointerEvents: "auto",
+        });
+        setShowSidebar(false);
+      } else {
+        // Show sidebar + hide navbar
+        gsap.to(navbarRef.current, {
+          y: -100,
+          opacity: 0,
+          duration: 0.4,
+          ease: "power2.out",
+          pointerEvents: "none",
+        });
+
+        setShowSidebar(true);
+
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          setShowSidebar(false);
+        }, 1000); // hide sidebar after 1s idle
+      }
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(scrollTimeout);
+    };
+  }, []);
 
   return (
     <>
-      <motion.div
-        animate={{
-          opacity: isAboveMediumScreens && isTopOfPage ? 0 : 1,
-          y: isAboveMediumScreens && isTopOfPage ? -20 : 0,
-          pointerEvents: isAboveMediumScreens && isTopOfPage ? "none" : "auto",
-        }}
-        transition={{ duration: 0.2, ease: "easeInOut" }}
-        style={{
-          position: "fixed",
-          width: "100%",
-          zIndex: 1300,
-        }}
+      {/* Top Navbar */}
+      <div
+        ref={navbarRef}
+        id="navbar"
+        style={{ position: "fixed", width: "100%", zIndex: 1300 }}
       >
         <AppBar
           position="fixed"
@@ -56,14 +95,11 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
           <Toolbar
             sx={{
               maxWidth: "83.3333%",
-              width: "100%",
               mx: "auto",
               display: "flex",
-              alignItems: "center",
               justifyContent: "space-between",
             }}
           >
-            {/* Logo / Brand */}
             <Link
               page="Home"
               selectedPage={selectedPage}
@@ -72,7 +108,6 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
               <Typography variant="h5">JYS</Typography>
             </Link>
 
-            {/* Navigation or Menu Icon */}
             {isAboveMediumScreens ? (
               <NavLinks
                 selectedPage={selectedPage}
@@ -84,12 +119,9 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
               <IconButton
                 onClick={() => setIsMenuToggled((prev) => !prev)}
                 sx={{
-                  backgroundColor: isMenuToggled ? "#f0f0f0" : "#636363", // custom background when toggled
+                  backgroundColor: isMenuToggled ? "#f0f0f0" : "#636363",
                   borderRadius: "50%",
                   p: 1,
-                  "&:hover": {
-                    backgroundColor: isMenuToggled ? "#e0e0e0" : "black",
-                  },
                 }}
               >
                 {isMenuToggled ? (
@@ -101,8 +133,7 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
             )}
           </Toolbar>
         </AppBar>
-      </motion.div>
-
+      </div>
       {/* Mobile Drawer */}
       <Drawer
         anchor="right"
@@ -114,38 +145,20 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
             bgcolor: theme.palette.background.default,
             display: "flex",
             flexDirection: "column",
-            justifyContent: "flex-start",
             alignItems: "center",
             pt: 4,
           },
         }}
       >
-        {/* Navigation Links */}
         <NavLinks
           selectedPage={selectedPage}
           setSelectedPage={setSelectedPage}
           direction="column"
           spacing={4}
-          pages={[
-            { label: "Home", value: SelectedPage.Home, icon: <HomeIcon /> },
-            {
-              label: "About Me",
-              value: SelectedPage.AboutMe,
-              icon: <InfoIcon />,
-            },
-            { label: "Work", value: SelectedPage.Work, icon: <WorkIcon /> },
-            {
-              label: "Contact Me",
-              value: SelectedPage.ContactMe,
-              icon: <ContactMailIcon />,
-            },
-          ]}
-          sx={{
-            mt: isAboveMediumScreens ? 0 : theme.spacing(10),
-          }}
           onLinkClick={() => setIsMenuToggled(false)}
         />
       </Drawer>
+      {isAboveMediumScreens && showSidebar && <FloatingSidebar />}
     </>
   );
 };

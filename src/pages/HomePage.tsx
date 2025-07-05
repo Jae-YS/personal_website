@@ -1,18 +1,20 @@
-// src/pages/HomePage.tsx
-import Home from "@/components/Hero/Hero";
-import AboutMe from "@/components/AboutMe/AboutMe";
-import Work from "@/components/Projects/Projects";
-import ContactMe from "@/components/Contact/Contact";
-import DividerLine from "@/shared/DividerLine";
 import { useOutletContext } from "react-router-dom";
 import { Box, useTheme } from "@mui/material";
 import { SelectedPage } from "@/shared/types";
 
+import Hero from "@/components/Hero/Hero";
+import AboutMe from "@/components/AboutMe/AboutMe";
+// import Work from "@/components/Projects/Projects";
+// import ContactMe from "@/components/Contact/Contact";
+import DividerLine from "@/shared/DividerLine";
+
 const HomePage = () => {
   const theme = useTheme();
-  const { setSelectedPage } = useOutletContext<{
-    selectedPage: SelectedPage;
+
+  const { setSelectedPage, mode, setMode } = useOutletContext<{
     setSelectedPage: (value: SelectedPage) => void;
+    mode: "light" | "dark";
+    setMode: React.Dispatch<React.SetStateAction<"light" | "dark">>;
   }>();
 
   return (
@@ -25,13 +27,17 @@ const HomePage = () => {
         fontFamily: theme.typography.fontFamily,
       }}
     >
-      <Home setSelectedPage={setSelectedPage} />
+      <Hero
+        setSelectedPage={setSelectedPage}
+        selectedPage={SelectedPage.Home}
+        setMode={setMode}
+        mode={mode}
+      />
       <AboutMe setSelectedPage={setSelectedPage} />
       <DividerLine />
-      {/* modify this */}
-      <Work setSelectedPage={setSelectedPage} />
+      {/* <Work setSelectedPage={setSelectedPage} />
       <DividerLine />
-      <ContactMe setSelectedPage={setSelectedPage} />
+      <ContactMe setSelectedPage={setSelectedPage} /> */}
     </Box>
   );
 };

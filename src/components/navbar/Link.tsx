@@ -1,7 +1,10 @@
 import { useTheme } from "@mui/material";
 import AnchorLink from "react-anchor-link-smooth-scroll";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { SelectedPage } from "@/shared/types";
+import gsap from "gsap";
+import { ScrollToPlugin } from "gsap/all";
+gsap.registerPlugin(ScrollToPlugin);
 
 type Props = {
   page: string;
@@ -12,7 +15,6 @@ type Props = {
 
 const Link = ({ page, selectedPage, setSelectedPage, children }: Props) => {
   const theme = useTheme();
-  const navigate = useNavigate();
   const location = useLocation();
 
   const lowerCasePage = page.toLowerCase().replace(/ /g, "") as SelectedPage;
@@ -23,14 +25,11 @@ const Link = ({ page, selectedPage, setSelectedPage, children }: Props) => {
 
   const handleClick = () => {
     setSelectedPage(lowerCasePage);
-
-    if (location.pathname !== "/") {
-      navigate("/");
-      setTimeout(() => {
-        const anchor = document.getElementById(lowerCasePage);
-        if (anchor) anchor.scrollIntoView({ behavior: "smooth" });
-      }, 100);
-    }
+    gsap.to(window, {
+      duration: 1,
+      scrollTo: { y: `#${page}`, offsetY: 80 },
+      ease: "power2.out",
+    });
   };
 
   const style = {

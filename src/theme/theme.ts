@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 
-// Extend custom palette if needed
+// Extend custom palette types
 declare module "@mui/material/styles" {
   interface Palette {
     customColors: {
@@ -16,53 +16,48 @@ declare module "@mui/material/styles" {
   }
 }
 
+export const lightTheme = createTheme({
+  palette: {
+    mode: "light",
+    background: { default: "#F7F6F2" },
+    text: { primary: "#202020" },
+    primary: { main: "#FF6B66" },
+    secondary: { main: "#FFC132" },
+    customColors: { grey20: "#F8F4EB", primary100: "#FFE1E0" },
+  },
+});
+
+export const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+    background: { default: "#202020" },
+    text: { primary: "#f0f0f0" },
+    primary: { main: "#FFC132" },
+    secondary: { main: "#FF6B66" },
+    customColors: { grey20: "#2A2A2A", primary100: "#3A3A3A" },
+  },
+});
+
 const theme = createTheme({
   palette: {
-    primary: {
-      main: "#FF6B66",
-    },
-    secondary: {
-      main: "#FFC132",
-      light: "#FFCD5B",
-    },
-    text: {
-      secondary: "#000",
-    },
-    grey: {
-      100: "#DFCCCC",
-      500: "#8C8C8C",
-    },
-    customColors: {
-      grey20: "#F8F4EB",
-      primary100: "#FFE1E0",
-    },
-    background: {
-      default: "#F7F6F2",
-    },
+    primary: { main: "#FF6B66" },
+    secondary: { main: "#FFC132", light: "#FFCD5B" },
+    text: { secondary: "#000" },
+    grey: { 100: "#DFCCCC", 500: "#8C8C8C" },
+    customColors: { grey20: "#F8F4EB", primary100: "#FFE1E0" },
+    background: { default: "#F7F6F2" },
   },
-
   typography: {
-    fontFamily: '"Inter", sans-serif',
     h1: {
-      fontSize: "clamp(1.5rem, 5vw, 3rem)",
+      fontSize: "6rem",
       fontWeight: 600,
+      fontFamily: '"Inter", sans-serif',
     },
-    h5: {
-      fontWeight: 400,
-      fontSize: "2rem",
-    },
-    body1: {
-      fontSize: "1rem",
-    },
-    button: {
-      fontWeight: 600,
-    },
+    h5: { fontWeight: 400, fontSize: "4rem" },
+    body1: { fontSize: "1rem" },
+    button: { fontWeight: 600 },
   },
-
-  shape: {
-    borderRadius: 8,
-  },
-
+  shape: { borderRadius: 8 },
   components: {
     MuiButton: {
       styleOverrides: {
@@ -93,16 +88,29 @@ const theme = createTheme({
         },
       },
     },
-  },
-
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 480,
-      md: 768,
-      lg: 1060,
-      xl: 1536,
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          scrollBehavior: "smooth",
+          backgroundColor: "#F7F6F2",
+        },
+        "@keyframes growBar": {
+          from: { transform: "translateX(-100%)" },
+          to: { transform: "translateX(0)" },
+        },
+        "@keyframes pulseGlow": {
+          "0%, 100%": {
+            boxShadow: "0 0 8px rgba(255, 107, 102, 0.6)",
+          },
+          "50%": {
+            boxShadow: "0 0 16px rgba(255, 107, 102, 0.9)",
+          },
+        },
+      },
     },
+  },
+  breakpoints: {
+    values: { xs: 0, sm: 480, md: 768, lg: 1060, xl: 1536 },
   },
 });
 

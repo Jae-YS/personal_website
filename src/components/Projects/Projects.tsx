@@ -1,8 +1,6 @@
 import { Box, Typography } from "@mui/material";
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import image1 from "@/assets/download-1.png";
-import image2 from "@/assets/download-2.png";
+
 import { SelectedPage } from "@/shared/types";
 
 type Props = {
@@ -80,7 +78,7 @@ const Work = ({ setSelectedPage }: Props) => {
                 padding: "0 1rem",
               }}
             >
-              <Box
+              {/* <Box
                 component="img"
                 src={image1}
                 alt="Acrylic"
@@ -89,7 +87,7 @@ const Work = ({ setSelectedPage }: Props) => {
                   height: { xs: "40vh", md: "60vh" }, // much smaller
                   objectFit: "cover",
                 }}
-              />
+              /> */}
             </motion.div>
             <Typography
               sx={{
@@ -123,7 +121,7 @@ const Work = ({ setSelectedPage }: Props) => {
                 padding: "0 1rem",
               }}
             >
-              <Box
+              {/* <Box
                 component="img"
                 src={image2}
                 alt="Oil"
@@ -132,7 +130,7 @@ const Work = ({ setSelectedPage }: Props) => {
                   height: { xs: "40vh", md: "60vh" },
                   objectFit: "cover",
                 }}
-              />
+              /> */}
             </motion.div>
             <Typography
               sx={{

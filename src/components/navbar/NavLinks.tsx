@@ -5,7 +5,7 @@ import { SelectedPage } from "@/shared/types";
 type PageItem = {
   label: string;
   value: SelectedPage;
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
 };
 
 type Props = {
@@ -24,10 +24,10 @@ const NavLinks = ({
   direction = "row",
   spacing = 4,
   pages = [
-    { label: "Home", value: SelectedPage.Home, icon: undefined },
-    { label: "About Me", value: SelectedPage.AboutMe, icon: undefined },
-    { label: "Work", value: SelectedPage.Work, icon: undefined },
-    { label: "Contact Me", value: SelectedPage.ContactMe, icon: undefined },
+    { label: "Home", value: SelectedPage.Home },
+    { label: "About Me", value: SelectedPage.AboutMe },
+    { label: "Work", value: SelectedPage.Work },
+    { label: "Contact Me", value: SelectedPage.ContactMe },
   ],
   sx = {},
   onLinkClick,
