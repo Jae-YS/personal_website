@@ -1,7 +1,7 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import DividerLine from "@/shared/DividerLine";
-import NavLinks from "@/components/Navbar/NavLinks";
-import { SelectedPage } from "@/shared/types";
+import DividerLine from "@/components/shared/DividerLine";
+import NavLinks from "@/components/layout/Navbar/NavLinks";
+import { SelectedPage } from "@/components/shared/types";
 
 type Props = {
   selectedPage: SelectedPage;
@@ -15,11 +15,13 @@ const Footer = ({ selectedPage, setSelectedPage }: Props) => {
     <Box
       component="footer"
       sx={{
-        bgcolor: theme.palette.background.default,
-        py: { xs: 6, md: 10 },
+        bgcolor: theme.palette.customColors.grey20,
+        color: theme.palette.text.primary,
+        py: { xs: theme.spacing(6), md: theme.spacing(10) },
       }}
     >
       <DividerLine sx={{ width: "100vw", mx: 0 }} />
+
       <Box
         sx={{
           maxWidth: "100%",
@@ -28,20 +30,24 @@ const Footer = ({ selectedPage, setSelectedPage }: Props) => {
           flexDirection: "column",
           alignItems: "center",
           textAlign: "center",
-          px: 2,
+          px: theme.spacing(2),
         }}
       >
         {/* Logo Text */}
         <Typography
           variant="h1"
           sx={{
-            fontSize: { xs: "3rem", sm: "5rem", md: "8rem" },
+            fontSize: {
+              xs: theme.typography.h5.fontSize,
+              sm: `calc(${theme.typography.h5.fontSize} * 1.4)`,
+              md: theme.typography.h1.fontSize,
+            },
             fontWeight: theme.typography.h1.fontWeight,
             letterSpacing: "0.05em",
-            mt: 4,
+            mt: theme.spacing(4),
           }}
         >
-          AVA NOVAK
+          JAE YOUNG SEO
         </Typography>
 
         {/* Navigation */}
@@ -51,8 +57,8 @@ const Footer = ({ selectedPage, setSelectedPage }: Props) => {
           direction="row"
           spacing={4}
           sx={{
-            mt: 4,
-            px: 2,
+            mt: theme.spacing(4),
+            px: theme.spacing(2),
             justifyContent: "center",
           }}
         />

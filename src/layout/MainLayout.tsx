@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
-import Navbar from "@/components/Navbar/NavBar";
-import Footer from "@/components/Footer/Footer";
-import { SelectedPage } from "@/shared/types";
+import { useRef, useState } from "react";
+import { Outlet } from "react-router-dom";
+import Navbar from "@/components/layout/Navbar/NavBar";
+import Footer from "@/components/layout/Footer/Footer";
+import { SelectedPage } from "@/components/shared/types";
 import { Box, Fade } from "@mui/material";
-import BouncyText from "@/shared/BouncyText";
-import gsap from "gsap";
+import { useHomeScreen } from "@/hooks/useHomeScreen";
+import SplashScreen from "@/components/sections/Loading/SplashScreen";
 
 type LayoutProps = {
   mode: "light" | "dark";
@@ -13,81 +13,18 @@ type LayoutProps = {
 };
 
 const Layout = ({ mode, setMode }: LayoutProps) => {
-  const location = useLocation();
   const [selectedPage, setSelectedPage] = useState<SelectedPage>(
     SelectedPage.Home
   );
   const [showSplash, setShowSplash] = useState(true);
-  const splashRef = useRef<HTMLDivElement>(null);
+  const splashRef = useRef<HTMLDivElement>(
+    null
+  ) as React.RefObject<HTMLDivElement>;
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      if (location.pathname === "/" && scrollY === 0) {
-        setSelectedPage(SelectedPage.Home);
-      }
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [location.pathname]);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      gsap.to(splashRef.current, {
-        opacity: 0,
-        duration: 0.6,
-        onComplete: () => setShowSplash(false),
-      });
-    }, 3200);
-
-    return () => clearTimeout(timeout);
-  }, []);
+  useHomeScreen(splashRef, setShowSplash, showSplash);
 
   if (showSplash) {
-    return (
-      <div
-        ref={splashRef}
-        style={{
-          minHeight: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-          padding: "0 16px",
-          textAlign: "center",
-          backgroundColor: "#F7F6F2",
-          opacity: 1,
-        }}
-      >
-        <BouncyText text="Welcome to my website." />
-        <Box
-          sx={{
-            width: "100%",
-            maxWidth: 400,
-            height: "4px",
-            backgroundColor: "#DFCCCC",
-            borderRadius: "8px",
-            overflow: "hidden",
-            position: "relative",
-            mt: 4,
-          }}
-        >
-          <Box
-            sx={{
-              width: "100%",
-              height: "100%",
-              backgroundColor: "#FF6B66",
-              position: "absolute",
-              left: 0,
-              top: 0,
-              animation: "growBar 3.3s linear forwards",
-            }}
-          />
-        </Box>
-      </div>
-    );
+    return <SplashScreen ref={splashRef} />;
   }
 
   return (

@@ -1,4 +1,4 @@
-import { SelectedPage } from "@/shared/types";
+import { SelectedPage } from "@/components/shared/types";
 import {
   Box,
   Button,

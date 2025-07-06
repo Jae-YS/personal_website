@@ -25,7 +25,6 @@ export default function Scene({
   const face_orange = useLoader(TextureLoader, "/face_orange.png");
   const sphere = useRef<THREE.Mesh>(null);
   const light = useRef<THREE.PointLight>(null);
-  const [down, setDown] = useState(false);
   const [hovered, setHovered] = useState(false);
 
   useFrame((state) => {
@@ -57,8 +56,7 @@ export default function Scene({
     }
   });
 
-  const [{ wobble, ambient, env }] = useSpring(() => ({
-    wobble: down ? 1.2 : hovered ? 1.05 : 1,
+  const [{ ambient, env }] = useSpring(() => ({
     ambient: mode === "dark" && !hovered ? 1.5 : 0.5,
     env: mode === "dark" && !hovered ? 0.4 : 1,
     config: (key) =>
@@ -69,7 +67,7 @@ export default function Scene({
 
   return (
     <>
-      <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={70}>
+      <PerspectiveCamera makeDefault position={[0, 0, 3]} fov={82}>
         <a.ambientLight intensity={ambient} />
         <a.pointLight
           ref={light}
@@ -81,12 +79,9 @@ export default function Scene({
       <Suspense fallback={null}>
         <a.mesh
           ref={sphere}
-          scale={wobble}
           onPointerOver={() => setHovered(true)}
           onPointerOut={() => setHovered(false)}
-          onPointerDown={() => setDown(true)}
-          onPointerUp={() => {
-            setDown(false);
+          onClick={() => {
             const next = mode === "light" ? "dark" : "light";
             setMode(next);
           }}

@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import { SelectedPage } from "@/shared/types";
+import { SelectedPage } from "@/components/shared/types";
 
 type Props = {
   setSelectedPage: (value: SelectedPage) => void;

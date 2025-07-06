@@ -1,7 +1,7 @@
 import { useTheme } from "@mui/material";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import { useLocation } from "react-router-dom";
-import { SelectedPage } from "@/shared/types";
+import { SelectedPage } from "@/types";
 import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/all";
 gsap.registerPlugin(ScrollToPlugin);

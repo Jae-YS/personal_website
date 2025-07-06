@@ -2,9 +2,9 @@ import { JSX } from "react";
 
 export enum SelectedPage {
   Home = "home",
-  Work = "work",
-  AboutMe = "aboutme",
-  ContactMe = "contactme",
+  About = "aboutme",
+  Projects = "work",
+  Contact = "contactme",
 }
 
 export interface BenefitType {

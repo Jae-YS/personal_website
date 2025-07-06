@@ -1,12 +1,11 @@
 import { useOutletContext } from "react-router-dom";
 import { Box, useTheme } from "@mui/material";
-import { SelectedPage } from "@/shared/types";
-
-import Hero from "@/components/Hero/Hero";
-import AboutMe from "@/components/AboutMe/AboutMe";
+import { SelectedPage } from "@/components/shared/types";
+import Hero from "@/components/sections/Hero/Hero";
+import AboutMe from "@/components/sections/AboutMe/AboutMe";
 // import Work from "@/components/Projects/Projects";
 // import ContactMe from "@/components/Contact/Contact";
-import DividerLine from "@/shared/DividerLine";
+import DividerLine from "@/components/shared/DividerLine";
 
 const HomePage = () => {
   const theme = useTheme();
@@ -20,11 +19,12 @@ const HomePage = () => {
   return (
     <Box
       sx={{
-        bgcolor: theme.palette.background.default,
+        backgroundColor: theme.palette.background.default,
         minHeight: "100vh",
         width: "100%",
         overflowX: "hidden",
         fontFamily: theme.typography.fontFamily,
+        color: theme.palette.text.primary, // ensures inherited text color
       }}
     >
       <Hero
@@ -33,7 +33,15 @@ const HomePage = () => {
         setMode={setMode}
         mode={mode}
       />
-      <AboutMe setSelectedPage={setSelectedPage} />
+      <Box
+        id="aboutme"
+        sx={{
+          backgroundColor: theme.palette.customColors.grey20,
+          transition: "background-color 0.3s ease",
+        }}
+      >
+        <AboutMe setSelectedPage={setSelectedPage} />
+      </Box>
       <DividerLine />
       {/* <Work setSelectedPage={setSelectedPage} />
       <DividerLine />
