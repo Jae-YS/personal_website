@@ -8,27 +8,21 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { useTheme } from "@mui/material/styles";
 import SocialIcon from "@/components/shared/SocialIcon";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import ThemeToggle from "@/components/shared/ThemeToggle";
+import { gsap } from "@/utils/gsap";
+import { useOutletContext } from "react-router-dom";
+import type { LayoutContextType } from "@/types";
 
 export type HeroProps = {
   selectedPage: SelectedPage;
   setSelectedPage: (value: SelectedPage) => void;
   onLinkClick?: () => void;
-  mode: "light" | "dark";
-  setMode: React.Dispatch<React.SetStateAction<"light" | "dark">>;
 };
 
-const Hero = ({
-  selectedPage,
-  setSelectedPage,
-  onLinkClick,
-  mode,
-  setMode,
-}: HeroProps) => {
+const Hero = () => {
   const theme = useTheme();
+  const { selectedPage, setSelectedPage, mode, setMode } =
+    useOutletContext<LayoutContextType>();
 
   const heroRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -116,14 +110,26 @@ const Hero = ({
             My name is <br />
             Jae Young Seo
           </Typography>
+          <Typography
+            width="80%"
+            component="h6"
+            variant="h6"
+            fontWeight={700}
+            lineHeight={1.2}
+            mb={2}
+            ref={headingRef}
+            sx={{ color: theme.palette.text.primary }}
+          >
+            I'm an early-career full-stack engineer interested in designing
+            systems that span from low-level concurrency to AI-powered
+            interfaces.
+          </Typography>
 
           <Link
-            key={SelectedPage.Contact}
             page={SelectedPage.Contact}
             selectedPage={selectedPage}
             setSelectedPage={(v) => {
               setSelectedPage(v);
-              if (onLinkClick) onLinkClick();
             }}
           >
             <Box
@@ -149,7 +155,7 @@ const Hero = ({
                   py: 1,
                   borderRadius: theme.shape.borderRadius,
                   textTransform: "none",
-                  transition: "none", // let Box handle animation
+                  transition: "none",
                 }}
               >
                 Contact Me
@@ -167,22 +173,12 @@ const Hero = ({
             flexDirection: "column",
             alignItems: "center",
             marginTop: 4,
-            gap: 2,
+            gap: 1,
             px: 2,
             py: 2,
           }}
         >
-          <Typography
-            variant="h6"
-            sx={{
-              color: theme.palette.text.primary,
-              textAlign: "center",
-              fontWeight: 700,
-              mb: 1,
-            }}
-          >
-            Change Modes
-          </Typography>
+          <ThemeToggle mode={mode} setMode={setMode} />
 
           <main
             style={{
@@ -194,7 +190,7 @@ const Hero = ({
             }}
           >
             <Canvas dpr={[1, 2]} style={{ width: "100%", height: 450 }} shadows>
-              <Scene setMode={setMode} mode={mode} />
+              <Scene mode={mode} />
               <OrbitControls
                 enablePan={false}
                 enableZoom={false}

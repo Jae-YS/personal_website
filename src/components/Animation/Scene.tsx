@@ -10,13 +10,7 @@ import { a } from "@react-spring/three";
 import { useRef, useState, Suspense } from "react";
 import { TextureLoader } from "three";
 
-export default function Scene({
-  mode,
-  setMode,
-}: {
-  mode: "light" | "dark";
-  setMode: React.Dispatch<React.SetStateAction<"light" | "dark">>;
-}) {
+export default function Scene({ mode }: { mode: "light" | "dark" }) {
   const face_green = useLoader(TextureLoader, "/face_green.png");
   const face_red = useLoader(TextureLoader, "/face_red.png");
   const face_blue = useLoader(TextureLoader, "/face_blue.png");
@@ -67,7 +61,7 @@ export default function Scene({
 
   return (
     <>
-      <PerspectiveCamera makeDefault position={[0, 0, 3]} fov={82}>
+      <PerspectiveCamera makeDefault position={[0, 0, 3]} fov={85}>
         <a.ambientLight intensity={ambient} />
         <a.pointLight
           ref={light}
@@ -81,10 +75,6 @@ export default function Scene({
           ref={sphere}
           onPointerOver={() => setHovered(true)}
           onPointerOut={() => setHovered(false)}
-          onClick={() => {
-            const next = mode === "light" ? "dark" : "light";
-            setMode(next);
-          }}
         >
           <boxGeometry args={[1.5, 1.5, 1.5]} />
           <meshStandardMaterial attach="material-0" map={face_red} />{" "}

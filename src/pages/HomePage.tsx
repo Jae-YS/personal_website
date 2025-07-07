@@ -1,20 +1,12 @@
-import { useOutletContext } from "react-router-dom";
 import { Box, useTheme } from "@mui/material";
-import { SelectedPage } from "@/components/shared/types";
 import Hero from "@/components/sections/Hero/Hero";
 import AboutMe from "@/components/sections/AboutMe/AboutMe";
 // import Work from "@/components/Projects/Projects";
-// import ContactMe from "@/components/Contact/Contact";
+import ContactMe from "@/components/sections/Contact/ContactMe";
 import DividerLine from "@/components/shared/DividerLine";
 
 const HomePage = () => {
   const theme = useTheme();
-
-  const { setSelectedPage, mode, setMode } = useOutletContext<{
-    setSelectedPage: (value: SelectedPage) => void;
-    mode: "light" | "dark";
-    setMode: React.Dispatch<React.SetStateAction<"light" | "dark">>;
-  }>();
 
   return (
     <Box
@@ -27,12 +19,7 @@ const HomePage = () => {
         color: theme.palette.text.primary, // ensures inherited text color
       }}
     >
-      <Hero
-        setSelectedPage={setSelectedPage}
-        selectedPage={SelectedPage.Home}
-        setMode={setMode}
-        mode={mode}
-      />
+      <Hero />
       <Box
         id="aboutme"
         sx={{
@@ -40,12 +27,12 @@ const HomePage = () => {
           transition: "background-color 0.3s ease",
         }}
       >
-        <AboutMe setSelectedPage={setSelectedPage} />
+        <AboutMe />
       </Box>
       <DividerLine />
-      {/* <Work setSelectedPage={setSelectedPage} />
+      {/* <Work setSelectedPage={setSelectedPage} /> */}
       <DividerLine />
-      <ContactMe setSelectedPage={setSelectedPage} /> */}
+      <ContactMe />
     </Box>
   );
 };

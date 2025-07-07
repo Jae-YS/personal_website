@@ -1,20 +1,14 @@
 import { useLayoutEffect, useRef } from "react";
-import { useOutletContext } from "react-router-dom";
 import { SelectedPage } from "@/components/shared/types";
 import { Box, Typography, useTheme } from "@mui/material";
 import headshot from "/me.png";
 import { gsap } from "@/utils/gsap";
+import { useOutletContext } from "react-router-dom";
+import type { LayoutContextType } from "@/types";
 
-type Props = {
-  setSelectedPage: (value: SelectedPage) => void;
-};
-
-const AboutMe = ({ setSelectedPage }: Props) => {
+const AboutMe = () => {
   const theme = useTheme();
-  const { mode } = useOutletContext<{
-    mode: "light" | "dark";
-    setMode: React.Dispatch<React.SetStateAction<"light" | "dark">>;
-  }>();
+  const { mode, setSelectedPage } = useOutletContext<LayoutContextType>();
 
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
