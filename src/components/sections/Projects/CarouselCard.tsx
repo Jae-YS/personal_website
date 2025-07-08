@@ -1,8 +1,13 @@
 import { JSX, useState } from "react";
 import { Box, Typography, Chip, IconButton, Fade } from "@mui/material";
 import { ArrowForwardIos, ArrowOutward } from "@mui/icons-material";
-import * as SiIcons from "react-icons/si";
+import { SiReact, SiTypescript } from "react-icons/si";
 import type { CarouselProps } from "@/types/index";
+
+const iconMap = {
+  react: SiReact,
+  typescript: SiTypescript,
+};
 
 const CarouselCard = ({
   title,
@@ -21,7 +26,8 @@ const CarouselCard = ({
 
   const getIcon = (iconName?: string): JSX.Element | undefined => {
     if (!iconName) return undefined;
-    const IconComponent = SiIcons[iconName as keyof typeof SiIcons];
+    const IconComponent =
+      iconMap[iconName.toLowerCase() as keyof typeof iconMap];
     return IconComponent ? (
       <Box
         sx={{
