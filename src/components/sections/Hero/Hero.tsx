@@ -1,17 +1,16 @@
-import { useRef } from "react";
+import { lazy, Suspense, useRef } from "react";
 import { Box, Typography, Chip, Stack, Button } from "@mui/material";
 import { LinkedIn, GitHub } from "@mui/icons-material";
 import Link from "@/components/layout/Navbar/Link";
 import { SelectedPage } from "@/types/index";
-import Scene from "@/components/animation/Scene";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
 import { useTheme } from "@mui/material/styles";
 import SocialIcon from "@/components/shared/SocialIcon";
 import ThemeToggle from "@/components/shared/ThemeToggle";
 import { useOutletContext } from "react-router-dom";
 import type { LayoutContextType } from "@/types/index";
 import { useHeroFadeIn } from "@/hooks/useHeroFadeIn";
+
+const SceneCanvas = lazy(() => import("@/components/animation/SceneCanvas"));
 
 const Hero = () => {
   const theme = useTheme();
@@ -59,7 +58,6 @@ const Hero = () => {
           gap: { xs: 6, md: 10 },
         }}
       >
-        {/* LEFT: Text */}
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 2 }}>
           <Chip
             label="AVAILABLE FOR WORK"
@@ -141,7 +139,6 @@ const Hero = () => {
           </Link>
         </Box>
 
-        {/* RIGHT: Scene + Icons */}
         <Box
           sx={{
             flex: 1,
@@ -167,23 +164,9 @@ const Hero = () => {
               height: { xs: 300, sm: 350, md: 400 },
             }}
           >
-            <Canvas
-              dpr={[1, 2]}
-              shadows
-              style={{
-                width: "100%",
-                height: "100%",
-                display: "block",
-              }}
-            >
-              <Scene mode={mode} />
-              <OrbitControls
-                enablePan={false}
-                enableZoom={false}
-                maxPolarAngle={Math.PI / 2}
-                minPolarAngle={Math.PI / 2}
-              />
-            </Canvas>
+            <Suspense fallback={<Box sx={{ width: "100%", height: "100%" }} />}>
+              <SceneCanvas mode={mode} />
+            </Suspense>
           </Box>
 
           <Stack direction="row" spacing={3} sx={{ marginTop: 2 }}>

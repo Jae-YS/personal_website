@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useRef } from "react";
 import ContactCard from "@/components/sections/Contact/ContactCard";
-import emailjs from "emailjs-com";
+import emailjs from "@emailjs/browser";
 import { useIntroToMainTransition } from "@/hooks/useIntroToMain";
 
 const ContactMe = () => {
