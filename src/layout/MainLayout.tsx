@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "@/components/layout/Navbar/NavBar";
 import Footer from "@/components/layout/Footer/Footer";
@@ -6,6 +6,7 @@ import { SelectedPage } from "@/types";
 import { Box, Fade } from "@mui/material";
 import { useSplashFadeOut } from "@/hooks/useSplashFadeOut";
 import SplashScreen from "@/components/sections/Loading/SplashScreen";
+const SceneCanvasImport = () => import("@/components/animation/SceneCanvas");
 
 type LayoutProps = {
   mode: "light" | "dark";
@@ -20,6 +21,10 @@ const Layout = ({ mode, setMode }: LayoutProps) => {
   const splashRef = useRef<HTMLDivElement>(
     null
   ) as React.RefObject<HTMLDivElement>;
+
+  useEffect(() => {
+    SceneCanvasImport();
+  }, []);
 
   useSplashFadeOut(splashRef, setShowSplash, showSplash);
 
