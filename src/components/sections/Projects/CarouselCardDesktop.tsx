@@ -1,63 +1,51 @@
-import { JSX, useState } from "react";
-import { Box, Typography, Chip, IconButton, Fade } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Chip,
+  IconButton,
+  Fade,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { ArrowForwardIos, ArrowOutward } from "@mui/icons-material";
-import { SiReact, SiTypescript } from "react-icons/si";
-import type { CarouselProps } from "@/types/index";
+import { useState } from "react";
+import type { CarouselCardProps } from "@/types/index";
+import { getIcon } from "@/utils/iconMap";
 
-const iconMap = {
-  react: SiReact,
-  typescript: SiTypescript,
-};
-
-const CarouselCard = ({
+const CarouselCardDesktop = ({
   title,
   description,
   image,
   techstack,
   link,
   keyfeatures,
-}: CarouselProps) => {
+}: CarouselCardProps) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery("(max-width: 767px)");
+  const isMedium = useMediaQuery(theme.breakpoints.between("sm", "md"));
   const [hovered, setHovered] = useState(false);
   const [page, setPage] = useState(0);
 
-  const handleNext = () => {
-    setPage((prev) => (prev === 0 ? 1 : 0));
-  };
-
-  const getIcon = (iconName?: string): JSX.Element | undefined => {
-    if (!iconName) return undefined;
-    const IconComponent =
-      iconMap[iconName.toLowerCase() as keyof typeof iconMap];
-    return IconComponent ? (
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          ml: "4px",
-          "& svg": {
-            fontSize: "1rem",
-          },
-        }}
-      >
-        <IconComponent />
-      </Box>
-    ) : undefined;
-  };
+  const handleNext = () => setPage((prev) => (prev === 0 ? 1 : 0));
 
   return (
     <Box
       className="project-card"
       sx={{
         position: "relative",
-        width: 280,
-        height: 400,
-        overflow: "hidden",
+        width: "100%",
+        maxWidth: "100%",
+        height: {
+          xs: "85vh",
+          sm: "75vh",
+          md: 460,
+        },
         borderRadius: 4,
+        overflow: "hidden",
         cursor: "pointer",
         transition: "transform 0.3s ease",
         "&:hover": {
-          transform: "scale(1.02)",
+          transform: isMobile ? "none" : "scale(1.02)",
         },
       }}
       onMouseEnter={() => setHovered(true)}
@@ -80,7 +68,6 @@ const CarouselCard = ({
           zIndex: 1,
         }}
       />
-
       <Box
         sx={{
           position: "absolute",
@@ -107,14 +94,33 @@ const CarouselCard = ({
         >
           {page === 0 ? (
             <>
-              <Typography variant="h6" color="white" fontWeight={700}>
+              <Typography
+                variant="h5"
+                color="white"
+                fontWeight={700}
+                sx={{
+                  fontSize: isMobile
+                    ? "1.3rem"
+                    : isMedium
+                    ? "1.2rem"
+                    : "1.1rem",
+                }}
+              >
                 {title}
               </Typography>
               {description && (
                 <Typography
                   variant="body2"
                   color="white"
-                  sx={{ lineHeight: 1.4, opacity: 0.9 }}
+                  sx={{
+                    lineHeight: 1.6,
+                    opacity: 0.95,
+                    fontSize: isMobile
+                      ? "0.95rem"
+                      : isMedium
+                      ? "0.9rem"
+                      : "0.85rem",
+                  }}
                 >
                   {description}
                 </Typography>
@@ -130,11 +136,12 @@ const CarouselCard = ({
                       sx={{
                         backgroundColor: "rgba(255,255,255,0.15)",
                         color: "#fff",
-                        fontSize: "0.7rem",
-                        backdropFilter: "blur(2px)",
+                        fontSize: isMobile ? "0.75rem" : "0.8rem",
+                        px: isMobile || isMedium ? 1 : undefined,
                         "& .MuiChip-icon": {
                           color: "#fff",
                           marginLeft: "-4px",
+                          fontSize: isMedium ? 18 : undefined,
                         },
                       }}
                     />
@@ -143,30 +150,41 @@ const CarouselCard = ({
               )}
             </>
           ) : (
-            <>
-              {(keyfeatures?.length ?? 0) > 0 && (
-                <Box sx={{ mt: 1 }}>
-                  {(keyfeatures ?? []).map((feature, i) => (
-                    <Typography
-                      key={i}
-                      variant="caption"
-                      color="white"
-                      sx={{ display: "block", mb: 0.5, fontSize: "0.8rem" }}
-                    >
-                      • {feature}
-                    </Typography>
-                  ))}
-                </Box>
-              )}
-            </>
+            <Box sx={{ mt: 1 }}>
+              {(keyfeatures ?? []).map((feature, i) => (
+                <Typography
+                  key={i}
+                  variant="caption"
+                  color="white"
+                  sx={{
+                    display: "block",
+                    mb: 0.5,
+                    fontSize: isMobile
+                      ? "0.9rem"
+                      : isMedium
+                      ? "0.85rem"
+                      : "0.8rem",
+                  }}
+                >
+                  • {feature}
+                </Typography>
+              ))}
+            </Box>
           )}
 
           <IconButton
             size="small"
             onClick={handleNext}
-            sx={{ mt: "auto", alignSelf: "flex-end", color: "white" }}
+            sx={{
+              mt: "auto",
+              alignSelf: "flex-end",
+              color: "white",
+              fontSize: isMobile ? "1rem" : isMedium ? "0.95rem" : "inherit",
+            }}
           >
-            <ArrowForwardIos sx={{ fontSize: 16 }} />
+            <ArrowForwardIos
+              sx={{ fontSize: isMobile ? 18 : isMedium ? 17 : 16 }}
+            />
           </IconButton>
         </Box>
       </Fade>
@@ -178,11 +196,16 @@ const CarouselCard = ({
           rel="noopener noreferrer"
           style={{ position: "absolute", bottom: 12, left: 12, zIndex: 4 }}
         >
-          <ArrowOutward sx={{ color: "white", fontSize: 20 }} />
+          <ArrowOutward
+            sx={{
+              color: "white",
+              fontSize: isMobile ? 20 : isMedium ? 21 : 20,
+            }}
+          />
         </a>
       )}
     </Box>
   );
 };
 
-export default CarouselCard;
+export default CarouselCardDesktop;

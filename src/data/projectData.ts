@@ -5,10 +5,10 @@ export const projectData = [
     description:
       "A full-stack AI-powered fitness app that generates half-marathon training plans and offers personalized feedback using GPT-4o.",
     techstack: [
-      { name: "React (TypeScript)", icon: "SiReact" },
-      { name: "FastAPI", icon: "SiFastapi" },
-      { name: "PostgreSQL", icon: "SiPostgresql" },
-      { name: "OpenAI GPT-4o", icon: "SiOpenai" },
+      { name: "React (TypeScript)", icon: "react" },
+      { name: "FastAPI", icon: "fastapi" },
+      { name: "PostgreSQL", icon: "postgresql" },
+      { name: "OpenAI GPT-4o", icon: "openai" },
     ],
     keyfeatures: [
       "AI-generated workout plans with GPT-4o",
@@ -26,9 +26,9 @@ export const projectData = [
     description:
       "A machine learning project using Hugging Face Transformers to fine-tune BERT for extractive question answering on the SQuAD v1 dataset.",
     techstack: [
-      { name: "Python", icon: "SiPython" },
-      { name: "Hugging Face", icon: "SiHuggingface" },
-      { name: "Weights & Biases", icon: "SiWeightsandbiases" },
+      { name: "Python", icon: "python" },
+      { name: "Hugging Face", icon: "huggingface" },
+      { name: "Weights & Biases", icon: "weightsandbiases" },
     ],
     keyfeatures: [
       "Custom span alignment with offset/overflow mapping",
@@ -46,8 +46,8 @@ export const projectData = [
     description:
       "Research assistant work on a variadic concurrency abstraction in Go, contributing to a runtime-safe parallel execution model and ANN-oriented concurrency research.",
     techstack: [
-      { name: "Go", icon: "SiGo" },
-      { name: "CSP", icon: "Code" },
+      { name: "Go", icon: "go" },
+      { name: "CSP", icon: undefined },
       { name: "Reflection", icon: undefined},
       { name: "Concurrency", icon: undefined },
       { name: "Channels", icon: undefined },
@@ -68,10 +68,10 @@ export const projectData = [
     description:
       "A digital Valentine's card platform used by 150+ students with custom animations, email delivery, and shareable links.",
     techstack: [
-      { name: "React (TypeScript)", icon: "SiReact" },
-      { name: "Express", icon: "SiExpress" },
-      { name: "MongoDB", icon: "SiMongodb" },
-      { name: "Nodemailer", icon: "SiNodemailer" },
+      { name: "React (TypeScript)", icon: "React" },
+      { name: "Express", icon: "Express" },
+      { name: "MongoDB", icon: "Mongodb" },
+      { name: "Nodemailer", icon: "Nodemailer" },
     ],
     keyfeatures: [
       "Automated email delivery with Nodemailer",
