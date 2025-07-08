@@ -2,7 +2,7 @@ import { Box, useTheme } from "@mui/material";
 import Hero from "@/components/sections/Hero/Hero";
 import AboutMe from "@/components/sections/AboutMe/AboutMe";
 import ContactMe from "@/components/sections/Contact/ContactMe";
-import Projects from "@/components/sections/Projects/Projects";
+import Project from "@/components/sections/Projects/Project";
 import DividerLine from "@/components/shared/DividerLine";
 
 const HomePage = () => {
@@ -34,7 +34,7 @@ const HomePage = () => {
         <AboutMe />
         <DividerLine sx={{ my: 0, height: "1px" }} />
       </Box>
-      <Projects />
+      <Project />
       <DividerLine sx={{ my: 0, height: "1px" }} />
 
       <ContactMe />

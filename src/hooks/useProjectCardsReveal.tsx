@@ -3,9 +3,11 @@ import { gsap } from "@/utils/gsap";
 
 export const useProjectCardsReveal = (
   containerRef: React.RefObject<HTMLElement>,
-  sectionRef: React.RefObject<HTMLElement>
+  sectionRef: React.RefObject<HTMLElement>,
+  isMobile: boolean
 ) => {
   useLayoutEffect(() => {
+    if (isMobile || !containerRef.current) return;
     const ctx = gsap.context(() => {
       if (sectionRef.current) {
         gsap.from(sectionRef.current, {
@@ -38,5 +40,5 @@ export const useProjectCardsReveal = (
     }, containerRef);
 
     return () => ctx.revert();
-  }, [containerRef, sectionRef]);
+  }, [containerRef, sectionRef, isMobile]);
 };

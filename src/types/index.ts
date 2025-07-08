@@ -67,17 +67,19 @@ export type Tech = {
   icon?: string;
 };
 
-export type CarouselProps = {
+export type CarouselCardProps = {
+  id: string | number;
   title: string;
   description?: string;
-  image?: string;
-  techstack?: Tech[];
+  image: string;
+  techstack?: { name: string; icon?: string }[];
   link?: string;
   keyfeatures?: string[];
+  isMobile?: boolean;
 };
 
 export type ProjectCardProps = {
-  view: "carousel" | "list";
+  key: string;
   title: string;
   image?: string;
   description?: string;
@@ -95,4 +97,3 @@ export type ThemeProps = {
   mode: "light" | "dark";
   setMode: (mode: "light" | "dark") => void;
 };
-
