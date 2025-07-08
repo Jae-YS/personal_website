@@ -1,25 +1,8 @@
 import { Stack, Typography, useTheme } from "@mui/material";
 import Link from "@/components/layout/Navbar/Link";
-import { SelectedPage } from "@/components/shared/types";
-import React, { useRef } from "react";
-import { useAutoSelectPage } from "@/hooks/useAutoSelectPage"; // adjust path as needed
-
-type PageItem = {
-  label: string;
-  value: SelectedPage;
-  icon?: React.ReactNode;
-};
-
-type Props = {
-  selectedPage: SelectedPage;
-  setSelectedPage: (value: SelectedPage) => void;
-  direction?: "row" | "column";
-  spacing?: number;
-  pages?: PageItem[];
-  sx?: object;
-  onLinkClick?: () => void;
-  sectionProgress?: Record<string, number>;
-};
+import { SelectedPage, type NavLinksProps } from "@/types";
+import { useRef } from "react";
+import { useAutoSelectPage } from "@/hooks/useAutoSelectPage";
 
 const NavLinks = ({
   selectedPage,
@@ -29,13 +12,13 @@ const NavLinks = ({
   pages = [
     { label: "Home", value: SelectedPage.Home },
     { label: "About Me", value: SelectedPage.About },
-    { label: "Work", value: SelectedPage.Projects },
+    { label: "My Projects", value: SelectedPage.Projects },
     { label: "Contact Me", value: SelectedPage.Contact },
   ],
   sx = {},
   onLinkClick,
   sectionProgress = {},
-}: Props) => {
+}: NavLinksProps) => {
   useAutoSelectPage({ sectionProgress, selectedPage, setSelectedPage });
 
   const prevProgressRef = useRef<Record<string, number>>({});
@@ -45,9 +28,15 @@ const NavLinks = ({
       {pages.map(({ label, value, icon }) => {
         const key = value.toLowerCase();
         const progress = Math.min(sectionProgress?.[key] ?? 0, 1);
+        const previousProgress = prevProgressRef.current[key] ?? 0;
 
-        const isFullyActive = progress >= 0.9;
-        const isSelected = selectedPage === value;
+        const isGrowing = progress > previousProgress;
+
+        const isFullyActive = progress >= 0.8;
+        const underlineProgress = isFullyActive ? 1 : progress;
+        const transition = isGrowing
+          ? "transform 0.3s ease-out, opacity 0.3s ease-out"
+          : "transform 0.15s ease-in, opacity 0.15s ease-in";
 
         prevProgressRef.current[key] = progress;
 
@@ -70,10 +59,9 @@ const NavLinks = ({
                   cursor: "pointer",
                   transition: "color 0.3s ease",
                   fontWeight: isFullyActive ? 700 : 400,
-                  color:
-                    isFullyActive || isSelected
-                      ? theme.palette.primary.main
-                      : theme.palette.text.primary,
+                  color: isFullyActive
+                    ? theme.palette.primary.main
+                    : theme.palette.text.primary,
                   "::after": {
                     content: '""',
                     position: "absolute",
@@ -82,16 +70,15 @@ const NavLinks = ({
                     height: "2px",
                     width: "100%",
                     backgroundColor: theme.palette.primary.main,
-                    transform: `scaleX(${progress})`,
+                    transform: `scaleX(${underlineProgress})`,
                     transformOrigin: "left center",
                     opacity: progress > 0.05 ? 1 : 0,
                     borderRadius: 2,
-                    transition: "transform 0.3s ease, opacity 0.3s ease",
+                    transition,
                   },
                   "&:hover::after": {
                     transform: "scaleX(1)",
                     opacity: 1,
-                    transformOrigin: "left center",
                   },
                 }}
               >

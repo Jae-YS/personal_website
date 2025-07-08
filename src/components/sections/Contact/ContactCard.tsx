@@ -1,86 +1,66 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
-import { gsap } from "@/utils/gsap";
-
-type ContactCardProps = {
-  label: string;
-  value: string;
-  href?: string;
-};
+import { useRef } from "react";
+import type { ContactCardProps } from "@/types/index";
+import { useScrollFadeIn } from "@/hooks/useScrollFadeIn";
 
 const ContactCard = ({ label, value, href }: ContactCardProps) => {
   const theme = useTheme();
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [expanded, setExpanded] = useState(false);
-
-  useEffect(() => {
-    const el = cardRef.current;
-    if (!el) return;
-
-    const ctx = gsap.context(() => {
-      gsap.from(el, {
-        scrollTrigger: {
-          trigger: el,
-          start: "top 85%",
-        },
-        opacity: 0,
-        y: 30,
-        duration: 0.6,
-        ease: "power2.out",
-      });
-    }, cardRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  const handleClick = () => {
-    const el = cardRef.current;
-    if (!el) return;
-
-    const state = Flip.getState(el);
-
-    setExpanded((prev) => !prev); // this triggers layout changes
-
-    Flip.from(state, {
-      duration: 0.5,
-      ease: "power2.inOut",
-    });
-  };
+  const cardRef = useRef<HTMLDivElement>(
+    null
+  ) as React.RefObject<HTMLDivElement>;
+  useScrollFadeIn(cardRef);
 
   return (
     <Box
       ref={cardRef}
-      onClick={handleClick}
       sx={{
-        width: expanded ? "100%" : 280,
-        p: 3,
-        bgcolor: theme.palette.background.paper,
-        borderRadius: 4,
-        boxShadow: theme.shadows[expanded ? 6 : 2],
-        cursor: "pointer",
-        transition: "all 0.3s ease",
+        width: "100%",
+        maxWidth: 280,
+        px: 2.5,
+        py: 2,
+        bgcolor: theme.palette.background.default,
+        border: `1px solid ${theme.palette.divider}`,
+        borderRadius: 2,
+        boxShadow: "none",
+        transition: "transform 0.25s ease, box-shadow 0.25s ease",
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",
-        gap: 1,
+        gap: 0.5,
+        "&:hover": {
+          transform: "translateY(-4px)",
+          boxShadow: theme.shadows[3],
+        },
       }}
     >
-      <Typography variant="subtitle2" color="text.secondary">
+      <Typography
+        variant="subtitle2"
+        color="text.secondary"
+        sx={{ fontSize: "0.75rem" }}
+      >
         {label}
       </Typography>
+
       {href ? (
         <Typography
-          variant="body1"
+          variant="body2"
           component="a"
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          sx={{ color: theme.palette.primary.main, textDecoration: "none" }}
+          sx={{
+            color: theme.palette.primary.main,
+            fontWeight: 500,
+            textDecoration: "none",
+            "&:hover": { textDecoration: "underline" },
+          }}
         >
           {value}
         </Typography>
       ) : (
-        <Typography variant="body1">{value}</Typography>
+        <Typography variant="body2" sx={{ fontWeight: 500 }}>
+          {value}
+        </Typography>
       )}
     </Box>
   );

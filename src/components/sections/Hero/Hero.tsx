@@ -1,65 +1,34 @@
-import { useLayoutEffect, useRef } from "react";
+import { useRef } from "react";
 import { Box, Typography, Chip, Stack, Button } from "@mui/material";
 import { LinkedIn, GitHub } from "@mui/icons-material";
 import Link from "@/components/layout/Navbar/Link";
-import { SelectedPage } from "@/components/shared/types";
+import { SelectedPage } from "@/types/index";
 import Scene from "@/components/animation/Scene";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { useTheme } from "@mui/material/styles";
 import SocialIcon from "@/components/shared/SocialIcon";
 import ThemeToggle from "@/components/shared/ThemeToggle";
-import { gsap } from "@/utils/gsap";
 import { useOutletContext } from "react-router-dom";
-import type { LayoutContextType } from "@/types";
-
-export type HeroProps = {
-  selectedPage: SelectedPage;
-  setSelectedPage: (value: SelectedPage) => void;
-  onLinkClick?: () => void;
-};
+import type { LayoutContextType } from "@/types/index";
+import { useHeroFadeIn } from "@/hooks/useHeroFadeIn";
 
 const Hero = () => {
   const theme = useTheme();
   const { selectedPage, setSelectedPage, mode, setMode } =
     useOutletContext<LayoutContextType>();
 
-  const heroRef = useRef<HTMLDivElement>(null);
-  const headingRef = useRef<HTMLHeadingElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const heroRef = useRef<HTMLDivElement>(
+    null
+  ) as React.RefObject<HTMLDivElement>;
+  const headingRef = useRef<HTMLHeadingElement>(
+    null
+  ) as React.RefObject<HTMLHeadingElement>;
+  const buttonRef = useRef<HTMLButtonElement>(
+    null
+  ) as React.RefObject<HTMLButtonElement>;
 
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      if (!headingRef.current || !buttonRef.current) return;
-
-      gsap.from(headingRef.current, {
-        scrollTrigger: {
-          trigger: headingRef.current,
-          start: "top 80%",
-          toggleActions: "play none none reverse",
-        },
-        opacity: 0,
-        x: -30,
-        duration: 1,
-        ease: "power2.out",
-      });
-
-      gsap.from(buttonRef.current, {
-        scrollTrigger: {
-          trigger: buttonRef.current,
-          start: "top 85%",
-          toggleActions: "play none none reverse",
-        },
-        opacity: 0,
-        y: 20,
-        duration: 0.8,
-        ease: "power2.out",
-        delay: 0.2,
-      });
-    }, heroRef);
-
-    return () => ctx.revert();
-  }, []);
+  useHeroFadeIn(heroRef, headingRef, buttonRef);
 
   return (
     <section
@@ -68,19 +37,26 @@ const Hero = () => {
       style={{
         backgroundColor: theme.palette.background.default,
         color: theme.palette.text.primary,
+        scrollMarginTop: "96px",
         width: "100%",
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        paddingTop: "12px",
       }}
     >
       <Box
         sx={{
-          minHeight: "100vh",
+          maxWidth: "1280px",
+          mx: "auto",
+          width: "100%",
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
           alignItems: "center",
           justifyContent: "space-between",
-          px: { xs: 2, md: 8 },
-          py: { xs: 5, md: 8 },
-          gap: { xs: 5, md: 8 },
+          px: { xs: 3, sm: 5, md: 8 },
+          py: { xs: 8, md: 10 },
+          gap: { xs: 6, md: 10 },
         }}
       >
         {/* LEFT: Text */}
@@ -100,24 +76,25 @@ const Hero = () => {
 
           <Typography
             component="h1"
-            variant="h1"
+            variant="h2"
             fontWeight={700}
             lineHeight={1.2}
             mb={2}
-            ref={headingRef}
-            sx={{ color: theme.palette.text.primary }}
+            sx={{
+              fontSize: { xs: "2.4rem", sm: "3rem", md: "4rem" },
+              color: theme.palette.text.primary,
+            }}
           >
             My name is <br />
             Jae Young Seo
           </Typography>
           <Typography
-            width="80%"
             component="h6"
             variant="h6"
-            fontWeight={700}
-            lineHeight={1.2}
-            mb={2}
-            ref={headingRef}
+            fontWeight={500}
+            lineHeight={1.5}
+            maxWidth="90%"
+            fontSize={{ xs: "1rem", sm: "1.1rem", md: "1.25rem" }}
             sx={{ color: theme.palette.text.primary }}
           >
             I'm an early-career full-stack engineer interested in designing
@@ -180,16 +157,25 @@ const Hero = () => {
         >
           <ThemeToggle mode={mode} setMode={setMode} />
 
-          <main
-            style={{
-              backgroundColor: theme.palette.background.default,
-              borderRadius: theme.shape.borderRadius,
-              overflow: "hidden",
+          <Box
+            sx={{
               width: "100%",
-              display: "block",
+              maxWidth: 400,
+              overflow: "hidden",
+              borderRadius: theme.shape.borderRadius,
+              backgroundColor: theme.palette.background.default,
+              height: { xs: 300, sm: 350, md: 400 },
             }}
           >
-            <Canvas dpr={[1, 2]} style={{ width: "100%", height: 450 }} shadows>
+            <Canvas
+              dpr={[1, 2]}
+              shadows
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "block",
+              }}
+            >
               <Scene mode={mode} />
               <OrbitControls
                 enablePan={false}
@@ -198,7 +184,7 @@ const Hero = () => {
                 minPolarAngle={Math.PI / 2}
               />
             </Canvas>
-          </main>
+          </Box>
 
           <Stack direction="row" spacing={3} sx={{ marginTop: 2 }}>
             <SocialIcon

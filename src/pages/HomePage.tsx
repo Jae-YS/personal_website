@@ -1,8 +1,8 @@
 import { Box, useTheme } from "@mui/material";
 import Hero from "@/components/sections/Hero/Hero";
 import AboutMe from "@/components/sections/AboutMe/AboutMe";
-// import Work from "@/components/Projects/Projects";
 import ContactMe from "@/components/sections/Contact/ContactMe";
+import Projects from "@/components/sections/Projects/Projects";
 import DividerLine from "@/components/shared/DividerLine";
 
 const HomePage = () => {
@@ -14,12 +14,16 @@ const HomePage = () => {
         backgroundColor: theme.palette.background.default,
         minHeight: "100vh",
         width: "100%",
+        maxWidth: "100vw",
         overflowX: "hidden",
+        scrollBehavior: "smooth",
         fontFamily: theme.typography.fontFamily,
-        color: theme.palette.text.primary, // ensures inherited text color
+        color: theme.palette.text.primary,
       }}
     >
       <Hero />
+      <DividerLine sx={{ my: 0, height: "1px" }} />
+
       <Box
         id="aboutme"
         sx={{
@@ -28,10 +32,11 @@ const HomePage = () => {
         }}
       >
         <AboutMe />
+        <DividerLine sx={{ my: 0, height: "1px" }} />
       </Box>
-      <DividerLine />
-      {/* <Work setSelectedPage={setSelectedPage} /> */}
-      <DividerLine />
+      <Projects />
+      <DividerLine sx={{ my: 0, height: "1px" }} />
+
       <ContactMe />
     </Box>
   );

@@ -1,9 +1,5 @@
 import { Box, useTheme } from "@mui/material";
-
-type SocialIconProps = {
-  href: string;
-  icon: React.ReactElement;
-};
+import type { SocialIconProps } from "@/types/index";
 
 const SocialIcon = ({ href, icon }: SocialIconProps) => {
   const theme = useTheme();

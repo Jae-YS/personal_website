@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { gsap } from "gsap";
 
-export const useHomeScreen = (
+export const useSplashFadeOut = (
   splashRef: React.RefObject<HTMLElement>,
   setShowSplash: React.Dispatch<React.SetStateAction<boolean>>,
   showSplash: boolean

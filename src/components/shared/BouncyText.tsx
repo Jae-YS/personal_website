@@ -16,11 +16,7 @@ const item = {
   visible: { opacity: 1, y: 0 },
 };
 
-interface AnimatedTextProps {
-  text: string;
-}
-
-const AnimatedText: React.FC<AnimatedTextProps> = ({ text }) => {
+const AnimatedText: React.FC<{ text: string }> = ({ text }) => {
   const [key, setKey] = useState(0);
 
   useEffect(() => {

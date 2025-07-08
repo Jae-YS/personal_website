@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { SelectedPage } from "@/types";
+import { SelectedPage } from "@/types/index";
 
 type UseAutoSelectPageProps = {
   sectionProgress: Record<string, number>;

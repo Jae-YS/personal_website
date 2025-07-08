@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { gsap } from "@/utils/gsap";
-import { SelectedPage } from "@/components/shared/types";
+import { SelectedPage } from "@/types";
 import { useLocation } from "react-router-dom";
 
-export const useNavbarAnimations = (
+export const useNavbarInitAndRouting = (
   navbarRef: React.RefObject<HTMLElement>,
   setSelectedPage: (value: SelectedPage) => void
 ) => {

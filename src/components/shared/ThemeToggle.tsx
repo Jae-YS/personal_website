@@ -3,13 +3,9 @@ import { Box, useTheme } from "@mui/material";
 import Brightness7RoundedIcon from "@mui/icons-material/Brightness7Rounded";
 import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
 import { useToggleTheme } from "@/hooks/useToggleTheme";
+import type { ThemeProps } from "@/types/index";
 
-type Props = {
-  mode: "light" | "dark";
-  setMode: (mode: "light" | "dark") => void;
-};
-
-const ThemeToggle = ({ mode, setMode }: Props) => {
+const ThemeToggle = ({ mode, setMode }: ThemeProps) => {
   const theme = useTheme();
   const isDark = mode === "dark";
   const containerRef = useRef<HTMLDivElement>(

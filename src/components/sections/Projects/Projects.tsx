@@ -1,153 +1,81 @@
-import { Box, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useRef } from "react";
+import { Box, Typography, useTheme } from "@mui/material";
+import ProjectCard from "@/components/sections/Projects/ProjectCard";
+import { projectData } from "@/data/projectData";
+import { useProjectCardsReveal } from "@/hooks/useProjectCardsReveal";
 
-import { SelectedPage } from "@/components/shared/types";
+const Project = () => {
+  const theme = useTheme();
+  const sectionRef = useRef<HTMLDivElement>(
+    null
+  ) as React.RefObject<HTMLDivElement>;
+  const cardsContainerRef = useRef<HTMLDivElement>(
+    null
+  ) as React.RefObject<HTMLDivElement>;
+  const visibleProjects = projectData;
 
-type Props = {
-  setSelectedPage: (value: SelectedPage) => void;
-};
+  useProjectCardsReveal(cardsContainerRef, sectionRef);
 
-const Work = ({ setSelectedPage }: Props) => {
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.5 }}
-      variants={{
-        hidden: { opacity: 0, y: 30 },
-        visible: { opacity: 1, y: 0 },
+    <section
+      id="myprojects"
+      ref={sectionRef}
+      style={{
+        backgroundColor: theme.palette.background.default,
+        color: theme.palette.text.primary,
+        width: "100%",
+        margin: "0 auto",
+        padding: "4rem 1rem",
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
       }}
-      onViewportEnter={() => setSelectedPage(SelectedPage.Work)}
     >
-      {/* Header */}
       <Box
-        id="work"
         sx={{
-          pt: { xs: 10, md: 12 },
-          textAlign: "center",
-          pb: 6,
+          maxWidth: "1440px",
+          margin: "0 auto",
+          px: { xs: 2, sm: 4, md: 6 },
         }}
       >
         <Typography
           variant="h4"
+          textAlign="start"
+          mb={{ xs: 4, md: 6 }}
           sx={{
-            fontFamily: "'Playfair Display', serif",
-            color: "black",
-            letterSpacing: "0.1em",
-            fontSize: { xs: "1.5rem", md: "3rem" },
-            fontWeight: 400,
+            fontWeight: 600,
+            color: theme.palette.primary.main,
           }}
         >
-          SELECTED WORK
+          My Projects
         </Typography>
-      </Box>
 
-      {/* Tile Container */}
-
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: {
-            xs: "column",
-            sm: "column",
-            md: "column",
-            lg: "row",
-          },
-          gap: { sm: "1rem", md: "1rem" },
-          maxWidth: "100%",
-          margin: "0 auto",
-          padding: "0 2rem",
-        }}
-      >
-        {/* Acrylic */}
         <Box
+          ref={cardsContainerRef}
+          className="projects-card"
           sx={{
-            flex: 1,
             display: "flex",
-            flexDirection: "column",
+            flexDirection: "row",
+            flexWrap: "nowrap",
+            gap: 3,
+            overflow: "hidden",
+            cursor: "grab",
+            alignItems: "flex-start",
+            justifyContent: "center",
+            pb: { xs: 6, md: 10 },
           }}
         >
-          <Link to="/work/acrylic" style={{ textDecoration: "none" }}>
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              style={{
-                width: "100%",
-                overflow: "hidden",
-                margin: "0 auto",
-                padding: "0 1rem",
-              }}
-            >
-              {/* <Box
-                component="img"
-                src={image1}
-                alt="Acrylic"
-                sx={{
-                  width: "100%",
-                  height: { xs: "40vh", md: "60vh" }, // much smaller
-                  objectFit: "cover",
-                }}
-              /> */}
-            </motion.div>
-            <Typography
-              sx={{
-                textAlign: "center",
-                py: 2,
-                color: "black",
-                fontFamily: "'Playfair Display', serif",
-                fontSize: "1.25rem",
-              }}
-            >
-              ACRYLIC ON CANVAS
-            </Typography>
-          </Link>
-        </Box>
-
-        {/* Oil */}
-        <Box
-          sx={{
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <Link to="/work/oil" style={{ textDecoration: "none" }}>
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              style={{
-                width: "100%",
-                overflow: "hidden",
-                margin: "0 auto",
-                padding: "0 1rem",
-              }}
-            >
-              {/* <Box
-                component="img"
-                src={image2}
-                alt="Oil"
-                sx={{
-                  width: "100%",
-                  height: { xs: "40vh", md: "60vh" },
-                  objectFit: "cover",
-                }}
-              /> */}
-            </motion.div>
-            <Typography
-              sx={{
-                textAlign: "center",
-                py: 2,
-                color: "black",
-                fontFamily: "'Playfair Display', serif",
-                fontSize: "1.25rem",
-              }}
-            >
-              OIL ON CANVAS
-            </Typography>
-          </Link>
+          {visibleProjects.map((project) => (
+            <ProjectCard
+              key={`${project.id}-carousel`}
+              {...project}
+              view="carousel"
+            />
+          ))}
         </Box>
       </Box>
-    </motion.div>
+    </section>
   );
 };
 
-export default Work;
+export default Project;

@@ -1,12 +1,11 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import DividerLine from "@/components/shared/DividerLine";
 import NavLinks from "@/components/layout/Navbar/NavLinks";
-import { SelectedPage } from "@/components/shared/types";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import type { WithSelectedPage } from "@/types";
 
-type Props = {
-  selectedPage: SelectedPage;
-  setSelectedPage: (value: SelectedPage) => void;
-};
+type Props = WithSelectedPage;
 
 const Footer = ({ selectedPage, setSelectedPage }: Props) => {
   const theme = useTheme();
@@ -15,12 +14,12 @@ const Footer = ({ selectedPage, setSelectedPage }: Props) => {
     <Box
       component="footer"
       sx={{
-        bgcolor: theme.palette.customColors.grey20,
+        backgroundColor: theme.palette.background.default,
         color: theme.palette.text.primary,
-        py: { xs: theme.spacing(6), md: theme.spacing(10) },
+        py: { xs: 6, md: 10 },
       }}
     >
-      <DividerLine sx={{ width: "100vw", mx: 0 }} />
+      <DividerLine sx={{ width: "100%", mx: 0 }} />
 
       <Box
         sx={{
@@ -30,10 +29,9 @@ const Footer = ({ selectedPage, setSelectedPage }: Props) => {
           flexDirection: "column",
           alignItems: "center",
           textAlign: "center",
-          px: theme.spacing(2),
+          px: 2,
         }}
       >
-        {/* Logo Text */}
         <Typography
           variant="h1"
           sx={{
@@ -44,24 +42,50 @@ const Footer = ({ selectedPage, setSelectedPage }: Props) => {
             },
             fontWeight: theme.typography.h1.fontWeight,
             letterSpacing: "0.05em",
-            mt: theme.spacing(4),
+            mt: 4,
           }}
         >
           JAE YOUNG SEO
         </Typography>
 
-        {/* Navigation */}
         <NavLinks
           selectedPage={selectedPage}
           setSelectedPage={setSelectedPage}
           direction="row"
           spacing={4}
           sx={{
-            mt: theme.spacing(4),
-            px: theme.spacing(2),
+            mt: 4,
+            px: 2,
             justifyContent: "center",
           }}
         />
+        <Box
+          sx={{
+            display: "flex",
+            gap: 4,
+            mt: 3,
+            justifyContent: "center",
+          }}
+        >
+          <a
+            href="https://github.com/Jae-YS"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            style={{ color: theme.palette.text.primary }}
+          >
+            <GitHubIcon fontSize="large" />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/jae-young-seo/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            style={{ color: theme.palette.text.primary }}
+          >
+            <LinkedInIcon fontSize="large" />
+          </a>
+        </Box>
       </Box>
     </Box>
   );

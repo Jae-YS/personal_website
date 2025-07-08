@@ -2,9 +2,9 @@ import { useRef, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "@/components/layout/Navbar/NavBar";
 import Footer from "@/components/layout/Footer/Footer";
-import { SelectedPage } from "@/components/shared/types";
+import { SelectedPage } from "@/types";
 import { Box, Fade } from "@mui/material";
-import { useHomeScreen } from "@/hooks/useHomeScreen";
+import { useSplashFadeOut } from "@/hooks/useSplashFadeOut";
 import SplashScreen from "@/components/sections/Loading/SplashScreen";
 
 type LayoutProps = {
@@ -21,7 +21,7 @@ const Layout = ({ mode, setMode }: LayoutProps) => {
     null
   ) as React.RefObject<HTMLDivElement>;
 
-  useHomeScreen(splashRef, setShowSplash, showSplash);
+  useSplashFadeOut(splashRef, setShowSplash, showSplash);
 
   if (showSplash) {
     return <SplashScreen ref={splashRef} />;

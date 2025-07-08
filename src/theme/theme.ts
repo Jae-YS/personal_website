@@ -21,6 +21,8 @@ const sharedThemeConfig: Omit<ThemeOptions, "palette"> = {
   typography: {
     fontFamily: '"Inter", sans-serif',
     h1: { fontSize: "6rem", fontWeight: 600 },
+    h4: { fontSize: "2.125rem", fontWeight: 600 },
+    h2: { fontSize: "3.75rem", fontWeight: 600 },
     h5: { fontSize: "4rem", fontWeight: 400 },
     body1: { fontSize: "1rem" },
     button: { fontWeight: 600 },

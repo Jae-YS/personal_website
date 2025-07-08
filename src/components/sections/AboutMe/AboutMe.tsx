@@ -1,43 +1,32 @@
-import { useLayoutEffect, useRef } from "react";
-import { SelectedPage } from "@/components/shared/types";
+import { useRef } from "react";
 import { Box, Typography, useTheme } from "@mui/material";
 import headshot from "/me.png";
-import { gsap } from "@/utils/gsap";
 import { useOutletContext } from "react-router-dom";
-import type { LayoutContextType } from "@/types";
+import type { LayoutContextType } from "@/types/index";
+import { useAboutMeAnimation } from "@/hooks/useAboutMeAnimation";
 
 const AboutMe = () => {
   const theme = useTheme();
-  const { mode, setSelectedPage } = useOutletContext<LayoutContextType>();
+  const { mode } = useOutletContext<LayoutContextType>();
 
-  const containerRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(
+    null
+  ) as React.RefObject<HTMLDivElement>;
+  const contentRef = useRef<HTMLDivElement>(
+    null
+  ) as React.RefObject<HTMLDivElement>;
 
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      if (contentRef.current) {
-        gsap.from(contentRef.current, {
-          scrollTrigger: {
-            trigger: contentRef.current,
-            start: "top 80%",
-            onEnter: () => setSelectedPage(SelectedPage.About),
-          },
-          opacity: 0,
-          x: -50,
-          duration: 1,
-          ease: "power2.out",
-        });
-      }
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, [setSelectedPage]);
+  useAboutMeAnimation(contentRef, containerRef);
 
   return (
-    <section
+    <Box
       id="aboutme"
       ref={containerRef}
-      style={{
+      sx={{
+        scrollMarginTop: { xs: 56, sm: 64 },
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
         backgroundColor: theme.palette.background.default,
         color: theme.palette.text.primary,
         width: "100%",
@@ -47,72 +36,75 @@ const AboutMe = () => {
         sx={{
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
-          minHeight: "100vh",
+          flex: 1,
           width: "100%",
-          mt: theme.spacing(15),
+          maxWidth: "1280px",
+          mx: "auto",
+          px: { xs: 3, md: 6 },
+          py: { xs: 6, md: 10 },
+          gap: { xs: 6, md: 8 },
         }}
       >
-        {/* LEFT - Text Content */}
         <Box
           ref={contentRef}
           sx={{
             flex: 1,
-            px: { xs: 3, md: 6 },
-            py: { xs: 4, md: 8 },
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
             color: theme.palette.text.primary,
+            gap: 2,
           }}
         >
           <Typography
             variant="h4"
-            sx={{ mb: 2, fontWeight: 600, color: theme.palette.primary.main }}
+            sx={{ fontWeight: 600, color: theme.palette.primary.main }}
           >
             About Me!
           </Typography>
-
           {[
-            "I’m a recent graduate from Vassar College with a double major in Computer Science and Mathematics. I’m currently looking for full-time roles in backend or full-stack engineering where I can keep learning, contribute to something meaningful, and grow with a team that values curiosity and impact.",
-            "I got into tech because I wanted to make a difference. My first idea was simple: build a website for my parents' small business to help them reach more people. That project sparked my interest in programming and quickly showed me how powerful technology can be when it’s created with care and intention.",
-            "My next project was for the Vassar community: a digital Valentine's Day card that spread smiles across campus. Since then, I’ve been driven by a desire to build tools that are thoughtful, accessible, and actually useful to the people who rely on them.",
-            "I recently completed Cognizant’s Generative AI externship and developed a concurrency abstraction in Go, called ParV2, during my time as a research assistant. These projects reflect my systems-level thinking and curiosity for how things work under the hood.",
-            "Outside of tech, I’ve led as Captain of the Varsity Track and Field Team and served as President of Vassar’s Computer Science Organization. Whether I'm writing code, organizing teammates, or mentoring peers, I care deeply about community, clarity, and progress.",
-            "I’m a curious problem-solver who enjoys finding thoughtful ways to improve the lives of others. As AI becomes more integrated into everyday life, I’m committed to learning deeply, staying thoughtful about its impact, and contributing to a future that benefits everyone.",
+            "I'm a recent Vassar College graduate with a double major in Computer Science and Mathematics, now looking for backend or full-stack roles where I can keep learning, contribute to something meaningful, and grow with a team that values curiosity and impact.",
+            "I got into tech after building a website for my parents' small business — a simple project that opened my eyes to how powerful and personal technology can be. Since then, I've created tools for my campus community, completed Cognizant's Generative AI externship, and developed a concurrency abstraction in Go through faculty-led research.",
+            "Outside of code, I've led as Captain of the Varsity Track and Field Team and President of Vassar's CS Organization. I'm a curious problem-solver who enjoys finding thoughtful ways to improve the lives of others. As AI becomes more integrated into daily life, I'm committed to building with thoughtfulness and purpose.",
           ].map((text, idx) => (
-            <Typography key={idx} variant="body1" sx={{ mb: 2 }}>
+            <Typography key={idx} variant="body1" sx={{ mb: 0.25 }}>
               {text}
             </Typography>
           ))}
         </Box>
 
-        {/* RIGHT - Image */}
         <Box
           sx={{
             flex: 1,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            px: { xs: 2, md: 4 },
-            py: { xs: 4, md: 8 },
           }}
         >
           <Box
-            component="img"
-            src={headshot}
-            alt="Jae Young Seo headshot"
             sx={{
               width: "100%",
-              maxWidth: "500px",
-              height: "auto",
-              objectFit: "contain",
+              maxWidth: 480,
+              height: { xs: 340, sm: 420, md: 500 },
+              overflow: "hidden",
               borderRadius: theme.shape.borderRadius,
               boxShadow: mode === "dark" ? 8 : 2,
             }}
-          />
+          >
+            <Box
+              component="img"
+              src={headshot}
+              alt="Jae Young Seo headshot"
+              sx={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
+            />
+          </Box>
         </Box>
       </Box>
-    </section>
+    </Box>
   );
 };
 

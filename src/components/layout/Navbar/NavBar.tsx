@@ -10,19 +10,14 @@ import {
 } from "@mui/material";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import NavLinks from "@/components/layout/Navbar/NavLinks";
-import { SelectedPage } from "@/components/shared/types";
-import { useNavbarAnimations } from "@/hooks/useNavbarAnimations";
+import type { WithSelectedPage } from "@/types";
+import { useNavbarInitAndRouting } from "@/hooks/useNavbarInitAndRouting";
 import { useSectionProgress } from "@/hooks/useSectionProgress";
-import Link from "./Link";
+import Link from "@/components/layout/Navbar/Link";
 
-type Props = {
-  selectedPage: SelectedPage;
-  setSelectedPage: React.Dispatch<React.SetStateAction<SelectedPage>>;
-};
-
-const Navbar = ({ selectedPage, setSelectedPage }: Props) => {
+const Navbar = ({ selectedPage, setSelectedPage }: WithSelectedPage) => {
   const sectionIds = useMemo(
-    () => ["home", "aboutme", "projects", "contactme"],
+    () => ["home", "aboutme", "myprojects", "contactme"],
     []
   );
   const sectionProgress = useSectionProgress(sectionIds);
@@ -33,21 +28,15 @@ const Navbar = ({ selectedPage, setSelectedPage }: Props) => {
     null
   ) as React.RefObject<HTMLDivElement>;
 
-  useNavbarAnimations(navbarRef, setSelectedPage);
+  useNavbarInitAndRouting(navbarRef, setSelectedPage);
 
   const isDark = theme.palette.mode === "dark";
   const iconColor = isDark
     ? theme.palette.common.white
     : theme.palette.common.black;
-  const iconBg = isMenuToggled
-    ? theme.palette.customColors.grey20
-    : isDark
-    ? theme.palette.grey[700]
-    : theme.palette.grey[500];
 
   return (
     <>
-      {/* Top Navbar */}
       <AppBar
         ref={navbarRef}
         position="fixed"
@@ -60,19 +49,18 @@ const Navbar = ({ selectedPage, setSelectedPage }: Props) => {
           borderBottom: `1px solid ${isDark ? "#222" : "rgba(0, 0, 0, 0.08)"}`,
           boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
           color: theme.palette.text.primary,
-          py: 0,
           transition: "background-color 0.3s ease",
-          zIndex: 1300,
+          zIndex: 3,
+          height: { xs: 56, sm: 64 },
         }}
       >
         <Toolbar
           disableGutters
           sx={{
-            maxWidth: "90%",
-            mx: "auto",
-            minHeight: "48px",
-            px: 2,
             width: "100%",
+            mx: "auto",
+            minHeight: { xs: 56, sm: 64 },
+            px: { xs: 2, sm: 4 },
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
@@ -111,9 +99,14 @@ const Navbar = ({ selectedPage, setSelectedPage }: Props) => {
             <IconButton
               onClick={() => setIsMenuToggled((prev) => !prev)}
               sx={{
-                backgroundColor: iconBg,
+                backgroundColor: "transparent",
+                "&:hover": {
+                  backgroundColor: theme.palette.action.hover,
+                },
                 borderRadius: "50%",
-                p: 1,
+                p: 1.25,
+                height: 40,
+                width: 40,
               }}
             >
               {isMenuToggled ? (
@@ -130,7 +123,6 @@ const Navbar = ({ selectedPage, setSelectedPage }: Props) => {
         </Toolbar>
       </AppBar>
 
-      {/* Mobile Drawer */}
       <Drawer
         anchor="right"
         open={!isAboveMediumScreens && isMenuToggled}
@@ -144,7 +136,10 @@ const Navbar = ({ selectedPage, setSelectedPage }: Props) => {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              pt: 6,
+              zIndex: 2,
+              pt: 10,
+              pb: 4,
+              px: 3,
               boxShadow: "0px 4px 12px rgba(0,0,0,0.2)",
             },
           },
