@@ -42,8 +42,7 @@ const ContactCard = ({ label, value, href }: ContactCardProps) => {
       </Typography>
 
       {href ? (
-        <Typography
-          variant="body2"
+        <Box
           component="a"
           href={href}
           target="_blank"
@@ -53,14 +52,13 @@ const ContactCard = ({ label, value, href }: ContactCardProps) => {
             fontWeight: 500,
             textDecoration: "none",
             "&:hover": { textDecoration: "underline" },
+            fontSize: "0.875rem",
           }}
         >
           {value}
-        </Typography>
+        </Box>
       ) : (
-        <Typography variant="body2" sx={{ fontWeight: 500 }}>
-          {value}
-        </Typography>
+        <Box sx={{ fontSize: "0.875rem", fontWeight: 500 }}>{value}</Box>
       )}
     </Box>
   );

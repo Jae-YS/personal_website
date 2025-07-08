@@ -36,12 +36,11 @@ export interface NavLinksProps {
   sectionProgress?: Record<string, number>;
 }
 
-export type ContactCardProps = {
+export interface ContactCardProps {
   label: string;
-  value: string;
+  value: React.ReactNode; 
   href?: string;
-};
-
+}
 export type LayoutContextType = {
   selectedPage: SelectedPage;
   setSelectedPage: (page: SelectedPage) => void;

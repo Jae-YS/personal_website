@@ -30,6 +30,11 @@ const ContactForm = ({ theme }: { theme: Theme }) => {
     e.preventDefault();
     if (!formRef.current) return;
 
+    if (!formRef.current.checkValidity()) {
+      formRef.current.reportValidity(); 
+      return;
+    }
+
     emailjs
       .sendForm(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
@@ -39,43 +44,37 @@ const ContactForm = ({ theme }: { theme: Theme }) => {
       )
       .then(
         () => alert("Message sent!"),
-        (error) => alert("Failed to send: " + error.text)
+        (error: { text: string }) => alert("Failed to send: " + error.text)
       );
   };
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} style={{ width: "100%" }}>
       <Paper
-        elevation={0}
         sx={{
-          p: { xs: 2, sm: 4 },
           flex: 1,
-          minWidth: { md: "400px" },
-          backgroundColor:
-            theme.palette.mode === "dark"
-              ? "#121212"
-              : theme.palette.customColors.grey20,
-          color: theme.palette.text.primary,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          p: 2,
         }}
       >
         <Typography
           variant="h6"
-          fontWeight={700}
-          mb={2}
-          sx={{
-            textTransform: "uppercase",
-            letterSpacing: 1,
-            fontSize: { xs: "1rem", sm: "1.2rem" },
-          }}
+          fontSize="1rem"
+          fontWeight={600}
+          mb={1}
+          textTransform="uppercase"
         >
           Contact
         </Typography>
 
-        <Stack spacing={{ xs: 1.5, sm: 2 }}>
+        <Stack spacing={1}>
           <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
             <TextField
               label="Name"
               name="name"
+              required
               fullWidth
               variant="standard"
               sx={textFieldStyle}
@@ -83,6 +82,8 @@ const ContactForm = ({ theme }: { theme: Theme }) => {
             <TextField
               label="Email"
               name="email"
+              type="email"
+              required
               fullWidth
               variant="standard"
               sx={textFieldStyle}
@@ -93,6 +94,7 @@ const ContactForm = ({ theme }: { theme: Theme }) => {
             <TextField
               label="Phone"
               name="phone"
+              required
               fullWidth
               variant="standard"
               sx={textFieldStyle}
@@ -100,6 +102,7 @@ const ContactForm = ({ theme }: { theme: Theme }) => {
             <TextField
               label="Subject"
               name="subject"
+              required
               fullWidth
               variant="standard"
               sx={textFieldStyle}
@@ -109,9 +112,10 @@ const ContactForm = ({ theme }: { theme: Theme }) => {
           <TextField
             label="Message"
             name="message"
+            required
             fullWidth
             multiline
-            rows={4}
+            rows={2}
             variant="standard"
             sx={textFieldStyle}
           />
@@ -121,10 +125,10 @@ const ContactForm = ({ theme }: { theme: Theme }) => {
             fullWidth
             variant="outlined"
             sx={{
-              mt: 3,
-              py: { xs: 1.25, sm: 1.5 },
+              mt: 2,
+              py: 0.75,
+              fontSize: "0.8rem",
               fontWeight: 600,
-              fontSize: { xs: "0.9rem", sm: "1rem" },
               textTransform: "none",
               borderRadius: 0,
               borderColor: theme.palette.primary.main,
@@ -137,7 +141,7 @@ const ContactForm = ({ theme }: { theme: Theme }) => {
               },
             }}
           >
-            Send to us
+            Send to Me!
           </Button>
         </Stack>
       </Paper>

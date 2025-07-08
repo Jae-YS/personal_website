@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { Box, Stack, Theme } from "@mui/material";
+import { Box, Theme } from "@mui/material";
 import ContactCardList from "@/components/sections/Contact/ContactCardList";
 import ContactForm from "@/components/sections/Contact/ContactForm";
 
@@ -9,29 +9,46 @@ const ContactContent = forwardRef<HTMLDivElement, { theme: Theme }>(
       <Box
         ref={ref}
         sx={{
-          width: "100%",
-          maxWidth: "1200px",
-          position: "absolute",
-          inset: 0,
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
           display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          opacity: 0,
-          mx: "auto",
-          px: { xs: 2, sm: 3, md: 4 },
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          alignItems: "stretch",
+          px: { xs: 2, sm: 3 },
+          py: { xs: 3, sm: 4 },
+          overflow: "hidden",
+          backgroundColor: theme.palette.background.default,
         }}
       >
-        <Stack
-          direction={{ xs: "column", md: "row" }}
-          spacing={{ xs: 4, md: 4 }}
+        <Box
           sx={{
-            width: "100%",
-            alignItems: "stretch",
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            px: { xs: 2, sm: 3 },
+            py: { xs: 3, sm: 4 },
+            backgroundColor: theme.palette.background.default,
           }}
         >
-          <ContactCardList theme={theme} />
-          <ContactForm theme={theme} />
-        </Stack>
+          <Box sx={{ flexShrink: 0 }}>
+            <ContactCardList theme={theme} />
+          </Box>
+
+          <Box
+            sx={{
+              flex: 1,
+              overflow: "hidden",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <ContactForm theme={theme} />
+          </Box>
+        </Box>
       </Box>
     );
   }
