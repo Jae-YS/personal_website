@@ -7,24 +7,46 @@ export const useIntroToMainTransition = (
   mainContentRef: React.RefObject<HTMLElement>
 ) => {
   useLayoutEffect(() => {
+    const mm = gsap.matchMedia();
+
     const ctx = gsap.context(() => {
       gsap.set(mainContentRef.current, { autoAlpha: 0 });
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "+=150%",
-          scrub: true,
-          pin: true,
+      mm.add(
+        {
+          isMobileOrTablet: "(max-width: 1024px)",
+          isDesktop: "(min-width: 1025px)",
         },
-      });
+        (context) => {
+          const conditions = context.conditions ?? {}; 
+          const isMobileOrTablet = conditions.isMobileOrTablet;
 
-      tl.to(introRef.current, { autoAlpha: 0, duration: 0.3 })
-        .to(mainContentRef.current, { autoAlpha: 1, duration: 0.4 })
-        .to({}, { duration: 0.6 });
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top top",
+              end: isMobileOrTablet ? "+=250%" : "+=150%",
+              scrub: true,
+              pin: true,
+            },
+          });
+
+          tl.to(introRef.current, {
+            autoAlpha: 0,
+            duration: isMobileOrTablet ? 0.8 : 0.3,
+          })
+            .to(mainContentRef.current, {
+              autoAlpha: 1,
+              duration: isMobileOrTablet ? 1 : 0.4,
+            })
+            .to({}, { duration: isMobileOrTablet ? 1.5 : 0.6 });
+        }
+      );
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      mm.revert();
+    };
   }, [sectionRef, introRef, mainContentRef]);
 };
