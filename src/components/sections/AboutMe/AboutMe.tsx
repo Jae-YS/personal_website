@@ -99,6 +99,8 @@ const AboutMe = () => {
                 width: "100%",
                 height: "100%",
                 objectFit: "cover",
+                objectPosition: "50% 50%", // shifts focus left and upward
+                transform: "scale(1.4)",
               }}
             />
           </Box>
