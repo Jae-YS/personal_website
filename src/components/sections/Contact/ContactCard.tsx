@@ -1,18 +1,20 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import { useRef } from "react";
+import PhoneIcon from "@mui/icons-material/Phone";
+import EmailIcon from "@mui/icons-material/Email";
 import type { ContactCardProps } from "@/types/index";
-import { useScrollFadeIn } from "@/hooks/useScrollFadeIn";
 
 const ContactCard = ({ label, value, href }: ContactCardProps) => {
   const theme = useTheme();
-  const cardRef = useRef<HTMLDivElement>(
-    null
-  ) as React.RefObject<HTMLDivElement>;
-  useScrollFadeIn(cardRef);
+
+  const getIcon = () => {
+    if (label.toLowerCase().includes("phone"))
+      return <PhoneIcon fontSize="small" />;
+    if (label.toLowerCase().includes("email"))
+      return <EmailIcon fontSize="small" />;
+  };
 
   return (
     <Box
-      ref={cardRef}
       sx={{
         width: "100%",
         maxWidth: 280,
@@ -33,13 +35,16 @@ const ContactCard = ({ label, value, href }: ContactCardProps) => {
         },
       }}
     >
-      <Typography
-        variant="subtitle2"
-        color="text.secondary"
-        sx={{ fontSize: "0.75rem" }}
-      >
-        {label}
-      </Typography>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        {getIcon()}
+        <Typography
+          variant="subtitle2"
+          color="text.secondary"
+          sx={{ fontSize: "0.75rem" }}
+        >
+          {label}
+        </Typography>
+      </Box>
 
       {href ? (
         <Box

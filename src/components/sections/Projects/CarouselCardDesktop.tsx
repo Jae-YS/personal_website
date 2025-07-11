@@ -6,6 +6,7 @@ import {
   Fade,
   useMediaQuery,
   useTheme,
+  Tooltip,
 } from "@mui/material";
 import { ArrowForwardIos, ArrowOutward } from "@mui/icons-material";
 import { useState } from "react";
@@ -42,7 +43,6 @@ const CarouselCardDesktop = ({
         },
         borderRadius: 4,
         overflow: "hidden",
-        cursor: "pointer",
         transition: "transform 0.3s ease",
         "&:hover": {
           transform: isMobile ? "none" : "scale(1.02)",
@@ -190,19 +190,37 @@ const CarouselCardDesktop = ({
       </Fade>
 
       {link && (
-        <a
-          href={link}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ position: "absolute", bottom: 12, left: 12, zIndex: 4 }}
+        <Tooltip
+          title={
+            link.includes("github.com")
+              ? "View GitHub Repository"
+              : "Go to Demo Site"
+          }
+          arrow
         >
-          <ArrowOutward
-            sx={{
-              color: "white",
-              fontSize: isMobile ? 20 : isMedium ? 21 : 20,
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={
+              link.includes("github.com") ? "GitHub Repo" : "Project Demo"
+            }
+            style={{
+              position: "absolute",
+              bottom: 12,
+              left: 12,
+              zIndex: 4,
+              display: "inline-flex",
             }}
-          />
-        </a>
+          >
+            <ArrowOutward
+              sx={{
+                color: "white",
+                fontSize: isMobile ? 20 : isMedium ? 21 : 20,
+              }}
+            />
+          </a>
+        </Tooltip>
       )}
     </Box>
   );

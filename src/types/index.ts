@@ -89,7 +89,8 @@ export type ProjectCardProps = {
 
 export type SocialIconProps = {
   href: string;
-  icon: React.ReactElement;
+  icon: React.ReactElement;  
+  color?: string;
 };
 
 export type ThemeProps = {

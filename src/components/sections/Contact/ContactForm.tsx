@@ -31,7 +31,7 @@ const ContactForm = ({ theme }: { theme: Theme }) => {
     if (!formRef.current) return;
 
     if (!formRef.current.checkValidity()) {
-      formRef.current.reportValidity(); 
+      formRef.current.reportValidity();
       return;
     }
 
@@ -52,6 +52,7 @@ const ContactForm = ({ theme }: { theme: Theme }) => {
     <form ref={formRef} onSubmit={handleSubmit} style={{ width: "100%" }}>
       <Paper
         sx={{
+          boxShadow: "none",
           flex: 1,
           display: "flex",
           flexDirection: "column",
@@ -69,8 +70,8 @@ const ContactForm = ({ theme }: { theme: Theme }) => {
           Contact
         </Typography>
 
-        <Stack spacing={1}>
-          <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+        <Stack spacing={{ xs: 3, md: 4 }}>
+          <Stack direction={{ xs: "column", sm: "row" }} spacing={3}>
             <TextField
               label="Name"
               name="name"
@@ -90,7 +91,7 @@ const ContactForm = ({ theme }: { theme: Theme }) => {
             />
           </Stack>
 
-          <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+          <Stack direction={{ xs: "column", sm: "row" }} spacing={3}>
             <TextField
               label="Phone"
               name="phone"
@@ -125,12 +126,12 @@ const ContactForm = ({ theme }: { theme: Theme }) => {
             fullWidth
             variant="outlined"
             sx={{
-              mt: 2,
-              py: 0.75,
+              px: 2,
+              py: 1,
               fontSize: "0.8rem",
               fontWeight: 600,
               textTransform: "none",
-              borderRadius: 0,
+              borderRadius: 2,
               borderColor: theme.palette.primary.main,
               color: theme.palette.primary.main,
               "&:hover": {

@@ -19,13 +19,16 @@ const ContactIntro = forwardRef<HTMLDivElement>((_, ref) => (
       variant="h4"
       fontWeight={700}
       gutterBottom
-      sx={{ fontSize: { xs: "2rem", md: "2.5rem" } }}
+      sx={{ fontSize: { xs: "2rem", md: "4rem" } }}
     >
-      Let's get in touch
+      Let's get in touch!
     </Typography>
-    <Typography variant="body1" fontWeight={500}>
-      Don&apos;t be afraid to say hello! I&apos;m always open to opportunities
-      and collaborations.
+    <Typography
+      sx={{ fontSize: { xs: "1.25rem", md: "2rem" } }}
+      fontWeight={500}
+    >
+      Don&apos;t be afraid to say hello! I&apos;m open to opportunities and
+      collaborations!
     </Typography>
   </Box>
 ));

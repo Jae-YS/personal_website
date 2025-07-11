@@ -1,4 +1,6 @@
-import { useRef, useState, useEffect } from "react";
+const SceneCanvasImport = () => import("@/components/animation/SceneCanvas");
+SceneCanvasImport();
+import { useRef, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "@/components/layout/Navbar/NavBar";
 import Footer from "@/components/layout/Footer/Footer";
@@ -6,7 +8,7 @@ import { SelectedPage } from "@/types";
 import { Box, Fade } from "@mui/material";
 import { useSplashFadeOut } from "@/hooks/useSplashFadeOut";
 import SplashScreen from "@/components/sections/Loading/SplashScreen";
-const SceneCanvasImport = () => import("@/components/animation/SceneCanvas");
+import DividerLine from "@/components/shared/DividerLine";
 
 type LayoutProps = {
   mode: "light" | "dark";
@@ -21,10 +23,6 @@ const Layout = ({ mode, setMode }: LayoutProps) => {
   const splashRef = useRef<HTMLDivElement>(
     null
   ) as React.RefObject<HTMLDivElement>;
-
-  useEffect(() => {
-    SceneCanvasImport();
-  }, []);
 
   useSplashFadeOut(splashRef, setShowSplash, showSplash);
 
@@ -45,6 +43,8 @@ const Layout = ({ mode, setMode }: LayoutProps) => {
             showSplash,
           }}
         />
+        <DividerLine sx={{ width: "100%", mx: 0 }} />
+
         <Footer selectedPage={selectedPage} setSelectedPage={setSelectedPage} />
       </Box>
     </Fade>

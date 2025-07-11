@@ -25,7 +25,7 @@ const ContactMe = () => {
       sx={{
         backgroundColor: theme.palette.background.default,
         color: theme.palette.text.primary,
-        height: "100vh",
+        minHeight: "100vh",
         overflow: "hidden",
         position: "relative",
       }}
