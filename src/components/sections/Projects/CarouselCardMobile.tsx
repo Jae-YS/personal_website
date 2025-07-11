@@ -8,7 +8,7 @@ import {
   ListItemText,
   ListItemIcon,
 } from "@mui/material";
-import { ExpandMore, ExpandLess, ArrowOutward } from "@mui/icons-material";
+import { ExpandMore, ArrowOutward } from "@mui/icons-material";
 import type { CarouselCardProps } from "@/types/index";
 import { getIcon } from "@/utils/iconMap";
 
@@ -47,7 +47,19 @@ const CarouselCardMobile = ({
           <ListItemText
             primary={<Typography fontWeight={600}>{title}</Typography>}
           />
-          {isExpanded ? <ExpandLess /> : <ExpandMore />}
+          <ExpandMore
+            sx={{
+              transform: isExpanded
+                ? "rotate(180deg) scale(1.1)"
+                : "rotate(0deg) scale(1)",
+              transition: "transform 0.3s ease, scale 0.3s ease",
+              "&:hover": {
+                transform: isExpanded
+                  ? "rotate(180deg) scale(1.2)"
+                  : "rotate(0deg) scale(1.1)",
+              },
+            }}
+          />
         </ListItemButton>
       </List>
       <Collapse in={isExpanded} timeout="auto" unmountOnExit>

@@ -1,8 +1,5 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import DividerLine from "@/components/shared/DividerLine";
 import NavLinks from "@/components/layout/Navbar/NavLinks";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import type { WithSelectedPage } from "@/types";
 
 type Props = WithSelectedPage;
@@ -16,11 +13,10 @@ const Footer = ({ selectedPage, setSelectedPage }: Props) => {
       sx={{
         backgroundColor: theme.palette.background.default,
         color: theme.palette.text.primary,
+        my: { xs: 4, md: 6 },
         py: { xs: 6, md: 10 },
       }}
     >
-      <DividerLine sx={{ width: "100%", mx: 0 }} />
-
       <Box
         sx={{
           maxWidth: "100%",
@@ -59,33 +55,12 @@ const Footer = ({ selectedPage, setSelectedPage }: Props) => {
             justifyContent: "center",
           }}
         />
-        <Box
-          sx={{
-            display: "flex",
-            gap: 4,
-            mt: 3,
-            justifyContent: "center",
-          }}
+        <Typography
+          variant="caption"
+          sx={{ mt: 4, mb: 1, color: theme.palette.text.secondary }}
         >
-          <a
-            href="https://github.com/Jae-YS"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            style={{ color: theme.palette.text.primary }}
-          >
-            <GitHubIcon fontSize="large" />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/jae-young-seo/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-            style={{ color: theme.palette.text.primary }}
-          >
-            <LinkedInIcon fontSize="large" />
-          </a>
-        </Box>
+          © {new Date().getFullYear()} Jae Young Seo. All rights reserved.
+        </Typography>
       </Box>
     </Box>
   );

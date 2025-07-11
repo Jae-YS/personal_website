@@ -172,27 +172,13 @@ const Hero = () => {
           <Stack direction="row" spacing={3} sx={{ marginTop: 2 }}>
             <SocialIcon
               href="https://www.linkedin.com/in/jae-young-seo/"
-              icon={
-                <LinkedIn
-                  sx={{
-                    fontSize: 42,
-                    color: "#0A66C2",
-                    transition: "color 0.3s ease",
-                  }}
-                />
-              }
+              icon={<LinkedIn sx={{ fontSize: 32 }} />}
+              color="#0A66C2"
             />
+
             <SocialIcon
               href="https://github.com/Jae-YS"
-              icon={
-                <GitHub
-                  sx={{
-                    fontSize: 42,
-                    color: "#000",
-                    transition: "color 0.3s ease",
-                  }}
-                />
-              }
+              icon={<GitHub sx={{ fontSize: 32 }} />}
             />
           </Stack>
         </Box>

@@ -32,10 +32,12 @@ const Project = () => {
         color: theme.palette.text.primary,
         width: "100%",
         margin: "0 auto",
-        paddingTop: isMobile ? "2rem" : "4rem",
-        paddingBottom: "2rem",
-        paddingLeft: "1rem",
-        paddingRight: "1rem",
+        marginTop: isMobile ? "2rem" : "4rem",
+        marginBottom: isMobile ? "2rem" : "4rem",
+        paddingTop: isMobile ? "3rem" : "6rem",
+        paddingBottom: "3rem",
+        paddingLeft: "2rem",
+        paddingRight: "2rem",
       }}
     >
       <Box sx={{ width: "100%" }}>
@@ -43,7 +45,7 @@ const Project = () => {
           sx={{
             maxWidth: isMobile ? "100%" : "1440px",
             mx: "auto",
-            px: { xs: 1, sm: 2, md: 4 },
+            px: { xs: 2, sm: 4, md: 6 },
           }}
         >
           <Typography
@@ -83,7 +85,7 @@ const Project = () => {
                 lg: "1fr 1fr 1fr 1fr",
               },
               gap: 4,
-              px: { xs: 1, sm: 2, md: 4 },
+              px: { xs: 2, sm: 4, md: 6 },
               maxWidth: "1440px",
               mx: "auto",
             }}
