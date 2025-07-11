@@ -10,38 +10,40 @@ export const useIntroToMainTransition = (
     const mm = gsap.matchMedia();
 
     const ctx = gsap.context(() => {
-      gsap.set(mainContentRef.current, { autoAlpha: 0 });
+      gsap.set(introRef.current, {
+        position: "absolute",
+        inset: 0,
+        autoAlpha: 1,
+      });
 
-      mm.add(
-        {
-          isMobileOrTablet: "(max-width: 1024px)",
-          isDesktop: "(min-width: 1025px)",
-        },
-        (context) => {
-          const conditions = context.conditions ?? {}; 
-          const isMobileOrTablet = conditions.isMobileOrTablet;
+      gsap.set(mainContentRef.current, {
+        position: "absolute",
+        inset: 0,
+        autoAlpha: 0,
+      });
 
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top top",
-              end: isMobileOrTablet ? "+=250%" : "+=150%",
-              scrub: true,
-              pin: true,
-            },
-          });
-
-          tl.to(introRef.current, {
+      mm.add("(min-width: 0px)", () => {
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: "+=200%",
+            scrub: true,
+            pin: true,
+            anticipatePin: 1,
+          },
+        })
+          .to(introRef.current, {
             autoAlpha: 0,
-            duration: isMobileOrTablet ? 0.8 : 0.3,
+            duration: 0.5,
+            ease: "power1.out",
           })
-            .to(mainContentRef.current, {
-              autoAlpha: 1,
-              duration: isMobileOrTablet ? 1 : 0.4,
-            })
-            .to({}, { duration: isMobileOrTablet ? 1.5 : 0.6 });
-        }
-      );
+          .to(mainContentRef.current, {
+            autoAlpha: 1,
+            duration: 0.5,
+            ease: "power1.out",
+          });
+      });
     }, sectionRef);
 
     return () => {
