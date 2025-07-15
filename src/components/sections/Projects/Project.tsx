@@ -16,11 +16,6 @@ const Project = () => {
   ) as React.RefObject<HTMLDivElement>;
   const [expandedId, setExpandedId] = useState<string | number | null>(null);
 
-  const visibleProjects = projectData.map((project) => ({
-    ...project,
-    key: project.id,
-  }));
-
   useProjectCardsReveal(cardsContainerRef, sectionRef, isMobile);
 
   return (
@@ -61,15 +56,14 @@ const Project = () => {
 
         {isMobile ? (
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            {visibleProjects.map((project) => (
+            {projectData.map(({ id, ...rest }) => (
               <CarouselCardMobile
-                {...project}
-                key={project.id}
-                isExpanded={expandedId === project.id}
+                key={id}
+                id={id}
+                {...rest}
+                isExpanded={expandedId === id}
                 onToggle={() =>
-                  setExpandedId((prev) =>
-                    prev === project.id ? null : project.id
-                  )
+                  setExpandedId((prev) => (prev === id ? null : id))
                 }
               />
             ))}
@@ -90,7 +84,7 @@ const Project = () => {
               mx: "auto",
             }}
           >
-            <CarouselCardWrapper items={visibleProjects} />
+            <CarouselCardWrapper items={projectData} />
           </Box>
         )}
       </Box>

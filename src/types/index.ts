@@ -1,5 +1,3 @@
-import { JSX } from "react";
-
 export enum SelectedPage {
   Home = "home",
   About = "aboutme",
@@ -7,17 +5,6 @@ export enum SelectedPage {
   Contact = "contactme",
 }
 
-export interface BenefitType {
-  icon: JSX.Element;
-  title: string;
-  description: string;
-}
-
-export interface ClassType {
-  name: string;
-  description?: string;
-  image: string;
-}
 
 export type PageItem = {
   label: string;
@@ -61,12 +48,8 @@ export interface LinkProps {
   children?: React.ReactNode;
 }
 
-export type Tech = {
-  name: string;
-  icon?: string;
-};
-
 export type CarouselCardProps = {
+  
   id: string | number;
   title: string;
   description?: string;
@@ -77,15 +60,6 @@ export type CarouselCardProps = {
   isMobile?: boolean;
 };
 
-export type ProjectCardProps = {
-  key: string;
-  title: string;
-  image?: string;
-  description?: string;
-  techstack?: Tech[];
-  keyfeatures?: string[];
-  link?: string;
-};
 
 export type SocialIconProps = {
   href: string;
