@@ -6,13 +6,18 @@ const ContactIntro = forwardRef<HTMLDivElement>((_, ref) => (
     ref={ref}
     sx={{
       position: "absolute",
-      inset: 0,
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
       display: "flex",
-      flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
+      flexDirection: "column",
       textAlign: "center",
       px: { xs: 2, md: 4 },
+      pointerEvents: "none",
+      zIndex: 1,
     }}
   >
     <Typography

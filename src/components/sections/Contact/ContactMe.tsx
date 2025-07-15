@@ -23,11 +23,13 @@ const ContactMe = () => {
       ref={sectionRef}
       id="contactme"
       sx={{
-        backgroundColor: theme.palette.background.default,
-        color: theme.palette.text.primary,
+        position: "relative",
+        width: "100%",
+        height: "100vh",
         minHeight: "100vh",
         overflow: "hidden",
-        position: "relative",
+        backgroundColor: theme.palette.background.default,
+        color: theme.palette.text.primary,
       }}
     >
       <ContactIntro ref={introRef} />

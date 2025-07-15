@@ -10,15 +10,16 @@ const ContactContent = forwardRef<HTMLDivElement, { theme: Theme }>(
         ref={ref}
         sx={{
           position: "absolute",
-          inset: 0,
+          top: 0,
+          left: 0,
           width: "100%",
           height: "100%",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           overflow: "hidden",
-          py: { xs: 4, sm: 6 },
-          backgroundColor: theme.palette.background.default,
+          pointerEvents: "auto",
+          zIndex: 0,
         }}
       >
         <Box

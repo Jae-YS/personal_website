@@ -7,42 +7,36 @@ export const useIntroToMainTransition = (
   mainContentRef: React.RefObject<HTMLElement>
 ) => {
   useLayoutEffect(() => {
+    if (!sectionRef.current || !introRef.current || !mainContentRef.current) return;
+
     const mm = gsap.matchMedia();
 
     const ctx = gsap.context(() => {
-      gsap.set(introRef.current, {
-        position: "absolute",
-        inset: 0,
-        autoAlpha: 1,
-      });
-
-      gsap.set(mainContentRef.current, {
-        position: "absolute",
-        inset: 0,
-        autoAlpha: 0,
-      });
+      gsap.set(introRef.current, { autoAlpha: 1 });
+      gsap.set(mainContentRef.current, { autoAlpha: 0 });
 
       mm.add("(min-width: 0px)", () => {
-        gsap.timeline({
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: "+=200%",
-            scrub: true,
-            pin: true,
-            anticipatePin: 1,
-          },
-        })
+        return gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top top",
+              end: "+=150%",
+              scrub: true,
+              pin: true,
+              anticipatePin: 1,
+            },
+          })
           .to(introRef.current, {
             autoAlpha: 0,
-            duration: 0.5,
-            ease: "power1.out",
-          })
+            duration: 1,
+            ease: "power2.out",
+          }, 0)
           .to(mainContentRef.current, {
             autoAlpha: 1,
-            duration: 0.5,
-            ease: "power1.out",
-          });
+            duration: 1,
+            ease: "power2.out",
+          }, 0);
       });
     }, sectionRef);
 
