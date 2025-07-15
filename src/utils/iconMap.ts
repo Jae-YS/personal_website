@@ -9,6 +9,12 @@ import {
   SiGo,
   SiExpress,
   SiMongodb,
+  SiRedux,
+  SiReactquery,
+  SiAuth0,
+  SiVite,
+  SiMui,
+  SiReactrouter,
 } from "react-icons/si";
 
 export const iconMap = {
@@ -22,6 +28,12 @@ export const iconMap = {
   go: SiGo,
   express: SiExpress,
   mongodb: SiMongodb,
+  redux: SiRedux,
+  reactquery: SiReactquery,
+  auth0: SiAuth0,
+  materialui: SiMui,
+  vite: SiVite,
+  reactrouter: SiReactrouter,
 };
 
 import React from "react";
