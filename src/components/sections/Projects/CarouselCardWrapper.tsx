@@ -11,14 +11,13 @@ const CarouselCardWrapper = ({ items }: { items: CarouselCardProps[] }) => {
   if (isMobile) {
     return (
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        {items.map((item) => (
+        {items.map(({ id, ...rest }) => (
           <CarouselCardMobile
-            key={item.id}
-            {...item}
-            isExpanded={expandedId === item.id}
-            onToggle={() =>
-              setExpandedId((prev) => (prev === item.id ? null : item.id))
-            }
+            key={id}
+            id={id}
+            {...rest}
+            isExpanded={expandedId === id}
+            onToggle={() => setExpandedId((prev) => (prev === id ? null : id))}
           />
         ))}
       </Box>
@@ -27,8 +26,8 @@ const CarouselCardWrapper = ({ items }: { items: CarouselCardProps[] }) => {
 
   return (
     <>
-      {items.map((item) => (
-        <CarouselCardDesktop key={item.id} {...item} />
+      {items.map(({ id, ...rest }) => (
+        <CarouselCardDesktop key={id} id={id} {...rest} />
       ))}
     </>
   );
