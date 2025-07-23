@@ -38,7 +38,7 @@ export const projectData = [
       "Designed relational database schemas with normalized relationships",
       "Deployed using Docker and maintained CI/CD pipelines with GitHub Actions",
     ],
-    link: "https://github.com/Jae-YS/Service-Management-API",
+    link: "https://mechanic-api-uwqv.onrender.com/api/docs/#/",
     image: "/service-api.png",
   },
 
