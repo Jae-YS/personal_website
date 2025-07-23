@@ -22,24 +22,26 @@ export const projectData = [
   },
   {
     id: "2",
-    title: "Fine-Tuned BERT on SQuAD v1",
+    title: "Service Management API",
     description:
-      "A machine learning project using Hugging Face Transformers to fine-tune BERT for extractive question answering on the SQuAD v1 dataset.",
+      "A backend API built with Flask and SQLAlchemy to manage mechanics, service tickets, and inventory assignments with secure JWT authentication and role-based access control.",
     techstack: [
       { name: "Python", icon: "python" },
-      { name: "Hugging Face", icon: "huggingface" },
-      { name: "Weights & Biases", icon: "weightsandbiases" },
+      { name: "Flask", icon: "flask" },
+      { name: "PostgreSQL", icon: "postgresql" },
+      { name: "SQLAlchemy", icon: "sqlalchemy" },
     ],
     keyfeatures: [
-      "Custom span alignment with offset/overflow mapping",
-      "Achieved 77.45% Exact Match and 85.19% F1",
-      "Mixed precision training with early stopping",
-      "Progressive dataset scaling and LR scheduling",
-      "Logged metrics using Weights & Biases",
+      "Built RESTful APIs with CRUD operations for mechanics, tickets, and inventory",
+      "Implemented JWT authentication and role-based access control",
+      "Added pagination, caching, and rate limiting for optimized API performance",
+      "Designed relational database schemas with normalized relationships",
+      "Deployed using Docker and maintained CI/CD pipelines with GitHub Actions",
     ],
-    link: "https://github.com/Jae-YS/BERT_model",
-    image: "/bert.webp",
+    link: "https://github.com/Jae-YS/Service-Management-API",
+    image: "/service-api.png",
   },
+
   {
     id: "3",
     title: "ParV2: Go-Based Parallel Function Composition",

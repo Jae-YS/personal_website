@@ -14,6 +14,8 @@ import {
   SiAuth0,
   SiVite,
   SiMui,
+  SiFlask,
+  SiSqlalchemy,
   SiReactrouter,
 } from "react-icons/si";
 
@@ -34,6 +36,8 @@ export const iconMap = {
   materialui: SiMui,
   vite: SiVite,
   reactrouter: SiReactrouter,
+  flask: SiFlask,
+  sqlalchemy: SiSqlalchemy,
 };
 
 import React from "react";
